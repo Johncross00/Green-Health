@@ -23,4 +23,9 @@ jobs:
           port: 5022
           script: |
             cd public_html
-            git checkout
+            git checkout main
+            echo "Pulling from main"
+            git pull origin main
+            echo "Migrating database"
+            php artisan migrate
+            echo "Deploying OK"
