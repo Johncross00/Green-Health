@@ -1,0 +1,17 @@
+version: 2
+updates:
+  # Pour les dépendances PHP via Composer
+  - package-ecosystem: "composer"
+    directory: "/" # Le fichier composer.json est à la racine du projet
+    schedule:
+      interval: "weekly" # Vérification des mises à jour une fois par semaine
+    commit-message:
+      prefix: "chore"
+
+  # Pour les dépendances JavaScript via NPM
+  - package-ecosystem: "npm"
+    directory: "/" # Le fichier package.json est également à la racine du projet
+    schedule:
+      interval: "weekly" # Vérification des mises à jour une fois par semaine
+    commit-message:
+      prefix: "chore"

@@ -11,6 +11,8 @@
     <meta property="og:type" content="website">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/js/app.js', 'resources/css/app.css']); ?>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
 
     <meta name="google-site-verification" content="XlL6Hde6-hJL2HiYzL6ZvmvO6hfxLShfCHASRxhIUrc" />
