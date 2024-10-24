@@ -23,9 +23,13 @@ jobs:
           port: 5022
           script: |
             cd public_html
-            git checkout main
-            echo "Pulling from main"
-            git pull origin main
+            git fetch --all
+            git reset --hard origin/main
             echo "Migrating database"
             php artisan migrate
+            echo "Clearing Laravel cache"
+            php artisan config:clear
+            php artisan cache:clear
+            php artisan route:clear
+            php artisan view:clear
             echo "Deploying OK"
