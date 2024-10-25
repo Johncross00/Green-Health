@@ -14,6 +14,23 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4.2.1
+      # Installer Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20' # Remplace par ta version de Node.js
+
+      # Installer les dépendances
+      - name: Install dependencies
+        run: |
+          cd public_html
+          npm install
+
+      # Construire les actifs
+      - name: Build assets
+        run: |
+          cd public_html
+          npm run build
       - name: Deploy to server
         uses: appleboy/ssh-action@v1.1.0
         with:
