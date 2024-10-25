@@ -12,7 +12,7 @@
 } ?>
 <?php unset($__defined_vars); ?>
 <h4 class="text-white">Liste des bons</h4>
-<section class="d-flex row g-4">
+<section class="d-flex row">
     <?php $__currentLoopData = $coupons; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $coupon): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 g-1">
             <div class="card h-100 border-none position-relative bg-dark <?php echo e($coupon->quantite === 0 ? 'border-danger text-secondary opacity-25' : ''); ?>">
