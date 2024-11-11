@@ -1,0 +1,35 @@
+name: Deploy to test
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  deploying:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4.2.1
+      - name: Deploy to server
+        uses: appleboy/ssh-action@v1.1.0
+        with:
+          host: node213-eu.n0c.com
+          username: vrtvjmeg
+          password: "#SG&(3#NL(aa5JN&z&"
+          port: 5022
+          script: |
+            cd public_html
+            git fetch --all
+            git reset --hard origin/main
+            echo "Migrating database"
+            php artisan migrate
+            echo "Clearing Laravel cache"
+            php artisan config:clear
+            php artisan cache:clear
+            php artisan route:clear
+            php artisan view:clear
+            echo "Deploying OK"
