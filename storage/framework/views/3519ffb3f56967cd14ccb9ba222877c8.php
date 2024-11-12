@@ -232,7 +232,7 @@
                     <form id="transferForm">
                         <?php echo csrf_field(); ?>
                         <div class="mb-5">
-                            <label for="transfer_amount" class="form-label">Montant à transférer (en XOF)</label>
+                            <label for="transfer_amount" class="form-label">Montant à transférer (en Jetons)</label>
                             <input type="number" class="form-control" id="transfer_amount" name="amount"
                                 min="1" required>
                         </div>
@@ -269,7 +269,7 @@
                                 required>
                         </div>
                         <div class="mb-3">
-                            <label for="user_transfer_amount" class="form-label">Montant à transférer (en XOF)</label>
+                            <label for="user_transfer_amount" class="form-label">Montant à transférer (en Jetons)</label>
                             <input type="number" class="form-control" id="user_transfer_amount" name="amount"
                                 min="1" required>
                         </div>

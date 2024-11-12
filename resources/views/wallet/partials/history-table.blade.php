@@ -30,7 +30,7 @@
                                 {{ ucfirst($transaction->type) }}
                             @endif
                         </td>
-                        <td>{{ number_format($transaction->amountFloat, 2) }} XOF</td>
+                        <td>{{ number_format($transaction->amountFloat * 100) }} Jetons</td>
                         <td>{{ $transaction->uuid }}</td>
                         <td>{{ $transaction->created_at->format('d/m/Y H:i') }}</td>
                         <td>
