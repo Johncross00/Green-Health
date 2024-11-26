@@ -2,55 +2,59 @@
 @include('layouts.dash-head')
 @section('title', 'utilisateurs.actifs')
 @section('sidebar')
-    <x-sidebar />
+<x-sidebar />
 
 @endsection
 @section('navbar')
-    <x-navbar />
+<x-navbar />
 @endsection
 
 @section('sidebar-container')
-    <style>
-        .side-container-bg {
-            background: rgba(245, 251, 252, 1);
-        }
+<style>
+    .side-container-bg {
+        background: rgba(245, 251, 252, 1);
+    }
 
-      
 
-        
 
-        body {
-            background-color: #f8f9fa;
-        }
-        .card-header {
-            background-color: #fd7e14;
-            color: rgb(186, 177, 177);
-        }
-        .table th {
-            color: #fd7e14;
-        }
-        .icon-orange {
-            color: #fd7e14;
-        }
-        .btn-activate {
-            background-color: #28a745;
-            color: white;
-        }
-        .btn-deactivate {
-            background-color: #dc3545;
-            color: white;
-        }
-        .btn-activate:hover, .btn-deactivate:hover {
-            color: white;
-            /* opacity: 0.9; */
-        }
-       
 
-       
-    </style>
 
-    <div class="w-100 side-container-bg">
-        <div class="w-100">
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .card-header {
+        background-color: #fd7e14;
+        color: rgb(186, 177, 177);
+    }
+
+    .table th {
+        color: #fd7e14;
+    }
+
+    .icon-orange {
+        color: #fd7e14;
+    }
+
+    .btn-activate {
+        background-color: #28a745;
+        color: white;
+    }
+
+    .btn-deactivate {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .btn-activate:hover,
+    .btn-deactivate:hover {
+        color: white;
+        /* opacity: 0.9; */
+    }
+</style>
+
+<div class="w-100 side-container-bg">
+    <div class="w-100">
         <div class="card shadow">
             <div class="card-header">
                 <h2 class="card-title text-black mb-0">Liste des Opérateurs</h2>
@@ -78,21 +82,22 @@
                             @foreach($operateurs as $op)
                             <tr>
                                 <td><i class="bi bi-person icon-orange me-2"></i>
-                                    {{$op->user->nom .','.$op->user->prenom }}
+                                    {{ optional($op->user)->nom . ',' . optional($op->user)->prenom ?: 'Utilisateur non trouvé' }}
                                 </td>
-                                <td><i class="bi bi-envelope icon-orange me-2"></i>{{
-                                    $op->user->email 
-                                }}</td>
+                                <td><i class="bi bi-envelope icon-orange me-2"></i>
+                                    {{ optional($op->user)->email ?: 'Email non disponible' }}
+                                </td>
+
                                 <td><i class="bi bi-geo-alt icon-orange me-2"></i>
                                     {{$op->location }}
                                 </td>
                                 {{-- <td>Ville, 8ème arrondissement, près de la Tour Eiffel</td> --}}
-                                
+
                                 <td><i class="bi bi-credit-card icon-orange me-2"></i>
-                                {{$op->identifiant}}
+                                    {{$op->identifiant}}
                                 </td>
                                 <td><i class="bi bi-coin icon-orange me-2"></i>
-                                {{$op->balance}}Gr
+                                    {{$op->balance}}Gr
                                 </td>
                                 <td>
 
@@ -105,32 +110,32 @@
                                 @if($op->status=='inactive')
 
                                 <td>
-                                    <form action="{{route('post-activer')}}" method="post" action="" >
+                                    <form action="{{route('post-activer')}}" method="post" action="">
                                         @method('POST')
 
                                         @csrf
                                         <input required type="text" hidden name="operateur" value="{{$op->id}}">
                                         <button type="submit" class="btn btn-sm btn-activate">Activer</button>
-                               
+
                                     </form>
-                                    
+
                                 </td>
                                 @else
                                 <td>
-                                    <form action="{{route('post-deactiver')}}" method="post" action="" >
+                                    <form action="{{route('post-deactiver')}}" method="post" action="">
                                         @method('POST')
 
                                         @csrf
                                         <input required type="text" hidden name="operateur" value="{{$op->id}}">
                                         <button type="submit" class="btn btn-sm btn-deactivate">Désactiver</button>
-                               
+
                                     </form>
-                                   
+
                                 </td>
                                 @endif
                             </tr>
                             @endforeach
-                         
+
                         </tbody>
                         @endif
                     </table>
@@ -158,41 +163,41 @@
                             <div class="mt-3">
                                 @if($op->status=='inactive')
 
-                                
-                                    <form action="{{route('post-activer')}}" method="post" action="" >
-                                        @method('POST')
 
-                                        @csrf
-                                        <input required type="text" hidden name="operateur" value="{{$op->id}}">
-                                        <button type="submit" class="btn btn-sm btn-activate">Activer</button>
-                               
-                                    </form>
-                                    
-                                
+                                <form action="{{route('post-activer')}}" method="post" action="">
+                                    @method('POST')
+
+                                    @csrf
+                                    <input required type="text" hidden name="operateur" value="{{$op->id}}">
+                                    <button type="submit" class="btn btn-sm btn-activate">Activer</button>
+
+                                </form>
+
+
                                 @else
-                                
-                                    <form action="{{route('post-deactiver')}}" method="post" action="" >
-                                        @method('POST')
 
-                                        @csrf
-                                        <input required type="text" hidden name="operateur" value="{{$op->id}}">
-                                        <button type="submit" class="btn btn-sm btn-deactivate">Désactiver</button>
-                               
-                                    </form>
-                                   
-                                
+                                <form action="{{route('post-deactiver')}}" method="post" action="">
+                                    @method('POST')
+
+                                    @csrf
+                                    <input required type="text" hidden name="operateur" value="{{$op->id}}">
+                                    <button type="submit" class="btn btn-sm btn-deactivate">Désactiver</button>
+
+                                </form>
+
+
                                 @endif
                             </div>
                         </div>
                     </div>
                     @endforeach
                     @endif
-                   
+
                 </div>
             </div>
         </div>
     </div>
-    </div>
+</div>
 
 
 @endsection

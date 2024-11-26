@@ -58,28 +58,10 @@ $user =Auth::user();
 @endphp
     <div class="w-100 side-container-bg">
         <div class="w-100">
-            @if(isset($user->client->transactions))
             <div class="row row-cols-1 row-cols-md-4 g-4">
-                <!-- Card 1 -->
-                @foreach($user->client->transactions as $tr)
-                <div class="col">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Retrait Réussi</h5>
-                            <p class="card-text">Vous venez de retirer <strong>:{{$tr['sommes']}}</strong> chez <strong>:{{$tr['operator']->identifiant.','.$tr['operator']->location}}</strong> à <strong>:{{$tr->interaction_date}}</strong>.</p>
-                            <p class="card-text">Il vous reste <strong>:{{$user['balance']}}</strong>.</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">Identifiant de transaction : <strong>:{{$tr['identifiant']}}</strong></small>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-    
-               
+                <!-- Card 1 --> 
               
             </div> 
-            @endif
     </div>
     </div>
 

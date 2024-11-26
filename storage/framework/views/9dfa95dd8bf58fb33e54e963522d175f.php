@@ -1,14 +1,12 @@
-
-
-<nav class="sidebar sidebar-offcanvas" id="sidebar" style="background-color:rgb(208, 225, 231)" >
+<nav class="sidebar sidebar-offcanvas" id="sidebar" style="background-color:rgb(208, 225, 231)">
     <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top"
-     style="background:rgb(208,225,231);">
+        style="background:rgb(208,225,231);">
         <a class="sidebar-brand brand-logo" href="<?php echo e(route('home')); ?>" style="background:rgb(208, 225, 231)">
             <img style="width:60px !important; height:60px !important; border-radius:50%;" src="<?php echo e(asset('assets/images/logo-bonr.png')); ?>" alt="logo" />
         </a>
         <a class="sidebar-brand brand-logo-mini" href="<?php echo e(route('home')); ?>">
-           <img src="<?php echo e(asset('assets/images/logo-bonr.png')); ?>" alt="logo" style="width:60px !important; height:60px !important; border-radius:50%;"/>
-          
+            <img src="<?php echo e(asset('assets/images/logo-bonr.png')); ?>" alt="logo" style="width:60px !important; height:60px !important; border-radius:50%;" />
+
         </a>
     </div>
     <ul class="nav">
@@ -24,11 +22,11 @@
                         <span><?php echo e(Auth::user()->user_type); ?></span>
                     </div>
                 </div>
-                <a  id="profile-dropdown" data-toggle="dropdown">
+                <a id="profile-dropdown" data-toggle="dropdown">
                     <i class="mdi mdi-dots-vertical"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list" aria-labelledby="profile-dropdown">
-                    <a  class="dropdown-item preview-item" href="<?php echo e(route('settings')); ?>">
+                    <a class="dropdown-item preview-item" href="<?php echo e(route('settings')); ?>">
                         <div class="preview-thumbnail">
                             <div class="preview-icon bg-dark rounded-circle">
                                 <i class="mdi mdi-settings text-primary"></i>
@@ -39,7 +37,7 @@
                         </div>
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a  class="dropdown-item preview-item" href="<?php echo e(route('get_update')); ?>">
+                    <a class="dropdown-item preview-item" href="<?php echo e(route('get_update')); ?>">
                         <div class="preview-thumbnail">
                             <div class="preview-icon bg-dark rounded-circle">
                                 <i class="mdi mdi-onepassword text-info"></i>
@@ -50,7 +48,7 @@
                         </div>
                     </a>
                     <div class="dropdown-divider"></div>
-                    
+
                 </div>
             </div>
         </li>
@@ -72,16 +70,16 @@
                     <i class="mdi mdi-coin"></i>
                 </span>
                 <span class="menu-title">Bons de restauration</span>
-                
+
             </a>
-            <li class="nav-item menu-items">
-                <a class="nav-link" href="<?php echo e(route('coin-create-operator')); ?>">
-                    <span class="menu-icon">
-                        <i class="mdi mdi-coin"></i>
-                    </span>
-                    <span class="menu-title">Charger le compte </span>
-                    
-                </a>
+        <li class="nav-item menu-items">
+            <a class="nav-link" href="<?php echo e(route('coin-create-operator')); ?>">
+                <span class="menu-icon">
+                    <i class="mdi mdi-coin"></i>
+                </span>
+                <span class="menu-title">Charger le compte </span>
+
+            </a>
             
         </li>
         <li class="nav-item menu-items">
@@ -101,8 +99,8 @@
             </a>
         </li>
         <?php endif; ?>
-        <li class="nav-item menu-items" >
-            <a class="nav-link"href="<?php echo e(route('generate')); ?>" >
+        <li class="nav-item menu-items">
+            <a class="nav-link" href="<?php echo e(route('generate')); ?>">
                 <span class="menu-icon">
                     <i class="mdi mdi-key-variant"></i>
                 </span>
@@ -112,7 +110,7 @@
         
         
         <li class="nav-item menu-items">
-            <a class="nav-link"  href="<?php echo e(route('coming-soon')); ?>">
+            <a class="nav-link" href="<?php echo e(route('coming-soon')); ?>">
                 <span class="menu-icon">
                     <i class="mdi mdi-cart"></i>
                 </span>
@@ -120,7 +118,7 @@
             </a>
         </li>
         <li class="nav-item menu-items">
-            <a class="nav-link"  href="<?php echo e(route('reseau.verify')); ?>">
+            <a class="nav-link" href="<?php echo e(route('reseau.verify')); ?>">
                 <span class="menu-icon">
                     <i class="mdi mdi-coin"></i>
                 </span>
@@ -129,9 +127,9 @@
         </li>
         <?php
         $user = Auth::user();
-    ?>
+        ?>
 
-    <?php if(!$user->operateur): ?>
+        <?php if(!$user->operateur): ?>
         <li class="nav-item menu-items">
             <a class="nav-link" href="<?php echo e(route('demande.operateur')); ?>">
                 <span class="menu-icon">
@@ -150,10 +148,10 @@
             </a>
         </li>
 
-    <?php endif; ?>
-    
+        <?php endif; ?>
+
         <li class="nav-item menu-items">
-            <a class="nav-link"  href="<?php echo e(route('mes-retrait')); ?>">
+            <a class="nav-link" href="<?php echo e(route('mes-retrait')); ?>">
                 <span class="menu-icon">
                     <i class="mdi mdi-cash-multiple"></i>
 
@@ -162,7 +160,7 @@
             </a>
         </li>
         <li class="nav-item menu-items">
-            <a class="nav-link"  href="<?php echo e(route('mes-validation')); ?>">
+            <a class="nav-link" href="<?php echo e(route('mes-validation')); ?>">
                 <span class="menu-icon">
                     <i class="mdi mdi-check"></i>
 
@@ -170,7 +168,25 @@
                 <span class="menu-title">Mes validations</span>
             </a>
         </li>
-       
+        <li class="nav-item menu-items">
+            <a class="nav-link" href="<?php echo e(route('operateur.index')); ?>">
+                <span class="menu-icon">
+                    <i class="mdi mdi-account-network"></i>
+
+                </span>
+                <span class="menu-title">Opérateur Réseau</span>
+            </a>
+        </li>
+        <li class="nav-item menu-items">
+            <a class="nav-link" href="<?php echo e(route('partenaire.index')); ?>">
+                <span class="menu-icon">
+                    <i class="mdi mdi-food"></i>
+
+                </span>
+                <span class="menu-title">Partenaire Commercial</span>
+            </a>
+        </li>
+
         <?php if(Auth::check() && Auth::user()->user_type==="admin"): ?>
         <li class="nav-item menu-items">
             <a class="nav-link" href="<?php echo e(route('account-actif')); ?>">
@@ -178,9 +194,9 @@
                     <i class="mdi mdi-account-plus"></i>
                 </span>
                 <span class="menu-title">Comptes actifs</span>
-                
+
             </a>
-           
+
         </li>
         <li class="nav-item menu-items">
             <a class="nav-link" href="<?php echo e(route('operateurs')); ?>">
@@ -188,9 +204,9 @@
                     <i class="mdi mdi-account-plus"></i>
                 </span>
                 <span class="menu-title">Opérateurs</span>
-                
+
             </a>
-           
+
         </li>
         <li class="nav-item menu-items">
             <a class="nav-link" href="<?php echo e(route('coming-soon')); ?>">
@@ -198,22 +214,21 @@
                     <i class="mdi mdi-security"></i>
                 </span>
                 <span class="menu-title">Gérer les utilisateur</span>
-                
+
             </a>
-           
+
         </li>
         <?php endif; ?>
-        
+
     </ul>
 </nav>
 <script>
-   
     document.querySelectorAll('.nav-link').forEach(function(link) {
         const url = window.location.href;
-         
+
         if (link.href === url) {
-         
-            link.parentElement.classList.add('active'); 
+
+            link.parentElement.classList.add('active');
         }
     });
 </script><?php /**PATH C:\Laravel\35-Sant--main\resources\views/components/sidebar.blade.php ENDPATH**/ ?>

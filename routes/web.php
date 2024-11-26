@@ -7,6 +7,8 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\CodeController;
 use App\Http\Controllers\LinkController;
 use App\Http\Controllers\OperateurController;
+use App\Http\Controllers\OperateurReseauController;
+use App\Http\Controllers\PartenaireCommercialController;
 use App\Http\Controllers\WalletController;
 
 /*
@@ -29,6 +31,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/transfer-gain-to-wallet/{userId}', [WalletController::class, 'transferGainToWallet'])->name('wallet.transfer_gain_to_balance');
     Route::post('/transfer-to-other-wallet/{userId}', [WalletController::class, 'transferToOtherWallet'])->name('wallet.wallet_to_wallet');
     Route::get('/wallet/history', [WalletController::class, 'transactionHistory'])->name('wallet.history');
+    Route::get('/operateur_reseau', [OperateurReseauController::class, 'index'])->name('operateur.index');
+    Route::get('/partenaire_commmercial', [PartenaireCommercialController::class, 'index'])->name('partenaire.index');
+    Route::post('coupon/{coupon}/activate', [BonController::class, 'activate'])->name('coupon.activate');
 
 });
 //reset
@@ -113,3 +118,4 @@ Route::post('/update-operateur', [OperateurController::class, 'update_operateur_
     ->name('post-update-localite');
 Route::post('/chargement-balance', [OperateurController::class, 'chargement'])
     ->name('coin-chargemnt');
+
