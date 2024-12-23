@@ -168,15 +168,22 @@
                 <span class="menu-title">Mes validations</span>
             </a>
         </li>
+        <?php
+        $user = Auth::user();
+        $operator = $user->operateur; // Assurez-vous que la relation 'operateur' est bien définie sur le modèle User
+        ?>
+
+        <?php if($operator && $operator->status === 'active'): ?>
         <li class="nav-item menu-items">
             <a class="nav-link" href="<?php echo e(route('operateur.index')); ?>">
                 <span class="menu-icon">
                     <i class="mdi mdi-account-network"></i>
-
                 </span>
                 <span class="menu-title">Opérateur Réseau</span>
             </a>
         </li>
+        <?php endif; ?>
+
         <li class="nav-item menu-items">
             <a class="nav-link" href="<?php echo e(route('partenaire.index')); ?>">
                 <span class="menu-icon">

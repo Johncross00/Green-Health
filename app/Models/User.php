@@ -128,10 +128,15 @@ class User extends Authenticatable implements Wallet
         return self::whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->get();
     }
 
+    // public function operateur()
+    // {
+    //     return $this->belongsTo(Operator::class, 'id');
+    // }
     public function operateur()
     {
-        return $this->belongsTo(Operator::class, 'id');
+        return $this->hasOne(Operator::class, 'user_id');
     }
+
     public function client()
     {
         return $this->belongsTo(OperatorClient::class, 'id');
