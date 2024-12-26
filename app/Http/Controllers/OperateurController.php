@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Services\OperateurService;
+use Illuminate\Support\Facades\Auth;
+
 class OperateurController extends Controller
 {
     //
@@ -29,6 +31,12 @@ class OperateurController extends Controller
             'localite'=>'string|required',
 
         ]);
+        
+        $user = Auth::user();
+
+        if ($user->operateur) {
+            return redirect()->back()->with('error', 'Vous êtes déjà opérateur');
+        }
         return $this->opera->create($request->all());
     }
     public function info(){

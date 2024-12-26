@@ -132,9 +132,14 @@ class User extends Authenticatable implements Wallet
     // {
     //     return $this->belongsTo(Operator::class, 'id');
     // }
+    // public function operateur()
+    // {
+    //     return $this->hasOne(Operator::class, 'user_id');
+    // }
+
     public function operateur()
     {
-        return $this->hasOne(Operator::class, 'user_id');
+        return $this->hasOne(Operator::class);
     }
 
     public function client()

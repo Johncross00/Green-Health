@@ -16,10 +16,10 @@ class operator
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(!Auth::user()->operateur){
-            return $next($request);
+        if (Auth::check() && Auth::user()->operateur) {
+            return redirect()->route('home')->with('error', 'Vous êtes déjà opérateur');
         }
-        return redirect()->route('home')->with('error','Vous etes deja operateur');
-        
+
+        return $next($request);
     }
 }

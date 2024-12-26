@@ -6,7 +6,6 @@
         </a>
         <a class="sidebar-brand brand-logo-mini" href="{{route('home')}}">
             <img src="{{asset('assets/images/logo-bonr.png')}}" alt="logo" style="width:60px !important; height:60px !important; border-radius:50%;" />
-
         </a>
     </div>
     <ul class="nav">
@@ -48,7 +47,6 @@
                         </div>
                     </a>
                     <div class="dropdown-divider"></div>
-
                 </div>
             </div>
         </li>
@@ -70,29 +68,15 @@
                     <i class="mdi mdi-coin"></i>
                 </span>
                 <span class="menu-title">Bons de restauration</span>
-
             </a>
+        </li>
         <li class="nav-item menu-items">
             <a class="nav-link" href="{{route('coin-create-operator')}}">
                 <span class="menu-icon">
                     <i class="mdi mdi-coin"></i>
                 </span>
                 <span class="menu-title">Charger le compte </span>
-
             </a>
-            {{-- <div class="collapse" id="ui-basic">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item">
-                        <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="pages/ui-features/dropdowns.html">Dropdowns</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="pages/ui-features/typography.html">Typography</a>
-                    </li>
-                </ul>
-            </div> --}}
         </li>
         <li class="nav-item menu-items">
             <a class="nav-link" href="{{route('bon-ravitailler')}}">
@@ -119,22 +103,6 @@
                 <span class="menu-title">Générer un code</span>
             </a>
         </li>
-        {{-- <li class="nav-item menu-items">
-            <a class="nav-link" href="{{route('coming-soon')}}">
-        <span class="menu-icon">
-            <i class="mdi mdi-paperclip"></i>
-        </span>
-        <span class="menu-title">Envoyer code</span>
-        </a>
-        </li> --}}
-        {{-- <li class="nav-item menu-items">
-            <a class="nav-link" href="{{route('sign-up')}}">
-        <span class="menu-icon">
-            <i class="mdi mdi-border-color"></i>
-        </span>
-        <span class="menu-title">Inscription</span>
-        </a>
-        </li> --}}
         <li class="nav-item menu-items">
             <a class="nav-link" href="{{route('coming-soon')}}">
                 <span class="menu-icon">
@@ -173,14 +141,32 @@
                 <span class="menu-title">Etat & dashboard</span>
             </a>
         </li>
+        @endif
 
+        @if(!$user->partenaire)
+        <li class="nav-item menu-items">
+            <a class="nav-link" href="{{ route('demande.partenaire') }}">
+                <span class="menu-icon">
+                    <i class="mdi mdi-account-circle"></i>
+                </span>
+                <span class="menu-title">Demande Partenaire</span>
+            </a>
+        </li>
+        @else
+        <li class="nav-item menu-items">
+            <a class="nav-link" href="{{ route('info.partenaire') }}">
+                <span class="menu-icon">
+                    <i class="mdi mdi-account-circle"></i>
+                </span>
+                <span class="menu-title">Etat & dashboard</span>
+            </a>
+        </li>
         @endif
 
         <li class="nav-item menu-items">
             <a class="nav-link" href="{{route('mes-retrait')}}">
                 <span class="menu-icon">
                     <i class="mdi mdi-cash-multiple"></i>
-
                 </span>
                 <span class="menu-title">Mes transactions</span>
             </a>
@@ -189,13 +175,11 @@
             <a class="nav-link" href="{{route('mes-validation')}}">
                 <span class="menu-icon">
                     <i class="mdi mdi-check"></i>
-
                 </span>
                 <span class="menu-title">Mes validations</span>
             </a>
         </li>
         @php
-        $user = Auth::user();
         $operator = $user->operateur; // Assurez-vous que la relation 'operateur' est bien définie sur le modèle User
         @endphp
 
@@ -210,15 +194,20 @@
         </li>
         @endif
 
+        @php
+        $partenaire = $user->partenaire; // Assurez-vous que la relation 'partenaire' est bien définie sur le modèle User
+        @endphp
+
+        @if($partenaire && $partenaire->status === 'active')
         <li class="nav-item menu-items">
             <a class="nav-link" href="{{route('partenaire.index')}}">
                 <span class="menu-icon">
-                    <i class="mdi mdi-food"></i>
-
+                    <i class="mdi mdi-account-network"></i>
                 </span>
                 <span class="menu-title">Partenaire Commercial</span>
             </a>
         </li>
+        @endif
 
         @if(Auth::check() && Auth::user()->user_type==="admin")
         <li class="nav-item menu-items">
@@ -227,9 +216,7 @@
                     <i class="mdi mdi-account-plus"></i>
                 </span>
                 <span class="menu-title">Comptes actifs</span>
-
             </a>
-
         </li>
         <li class="nav-item menu-items">
             <a class="nav-link" href="{{route('operateurs')}}">
@@ -237,9 +224,7 @@
                     <i class="mdi mdi-account-plus"></i>
                 </span>
                 <span class="menu-title">Opérateurs</span>
-
             </a>
-
         </li>
         <li class="nav-item menu-items">
             <a class="nav-link" href="{{route('coming-soon')}}">
@@ -247,12 +232,9 @@
                     <i class="mdi mdi-security"></i>
                 </span>
                 <span class="menu-title">Gérer les utilisateur</span>
-
             </a>
-
         </li>
         @endif
-
     </ul>
 </nav>
 <script>
@@ -260,7 +242,6 @@
         const url = window.location.href;
 
         if (link.href === url) {
-
             link.parentElement.classList.add('active');
         }
     });

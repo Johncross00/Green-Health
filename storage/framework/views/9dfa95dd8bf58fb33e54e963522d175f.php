@@ -6,7 +6,6 @@
         </a>
         <a class="sidebar-brand brand-logo-mini" href="<?php echo e(route('home')); ?>">
             <img src="<?php echo e(asset('assets/images/logo-bonr.png')); ?>" alt="logo" style="width:60px !important; height:60px !important; border-radius:50%;" />
-
         </a>
     </div>
     <ul class="nav">
@@ -48,7 +47,6 @@
                         </div>
                     </a>
                     <div class="dropdown-divider"></div>
-
                 </div>
             </div>
         </li>
@@ -70,17 +68,15 @@
                     <i class="mdi mdi-coin"></i>
                 </span>
                 <span class="menu-title">Bons de restauration</span>
-
             </a>
+        </li>
         <li class="nav-item menu-items">
             <a class="nav-link" href="<?php echo e(route('coin-create-operator')); ?>">
                 <span class="menu-icon">
                     <i class="mdi mdi-coin"></i>
                 </span>
                 <span class="menu-title">Charger le compte </span>
-
             </a>
-            
         </li>
         <li class="nav-item menu-items">
             <a class="nav-link" href="<?php echo e(route('bon-ravitailler')); ?>">
@@ -107,8 +103,6 @@
                 <span class="menu-title">Générer un code</span>
             </a>
         </li>
-        
-        
         <li class="nav-item menu-items">
             <a class="nav-link" href="<?php echo e(route('coming-soon')); ?>">
                 <span class="menu-icon">
@@ -147,14 +141,32 @@
                 <span class="menu-title">Etat & dashboard</span>
             </a>
         </li>
+        <?php endif; ?>
 
+        <?php if(!$user->partenaire): ?>
+        <li class="nav-item menu-items">
+            <a class="nav-link" href="<?php echo e(route('demande.partenaire')); ?>">
+                <span class="menu-icon">
+                    <i class="mdi mdi-account-circle"></i>
+                </span>
+                <span class="menu-title">Demande Partenaire</span>
+            </a>
+        </li>
+        <?php else: ?>
+        <li class="nav-item menu-items">
+            <a class="nav-link" href="<?php echo e(route('info.partenaire')); ?>">
+                <span class="menu-icon">
+                    <i class="mdi mdi-account-circle"></i>
+                </span>
+                <span class="menu-title">Etat & dashboard</span>
+            </a>
+        </li>
         <?php endif; ?>
 
         <li class="nav-item menu-items">
             <a class="nav-link" href="<?php echo e(route('mes-retrait')); ?>">
                 <span class="menu-icon">
                     <i class="mdi mdi-cash-multiple"></i>
-
                 </span>
                 <span class="menu-title">Mes transactions</span>
             </a>
@@ -163,13 +175,11 @@
             <a class="nav-link" href="<?php echo e(route('mes-validation')); ?>">
                 <span class="menu-icon">
                     <i class="mdi mdi-check"></i>
-
                 </span>
                 <span class="menu-title">Mes validations</span>
             </a>
         </li>
         <?php
-        $user = Auth::user();
         $operator = $user->operateur; // Assurez-vous que la relation 'operateur' est bien définie sur le modèle User
         ?>
 
@@ -184,15 +194,20 @@
         </li>
         <?php endif; ?>
 
+        <?php
+        $partenaire = $user->partenaire; // Assurez-vous que la relation 'partenaire' est bien définie sur le modèle User
+        ?>
+
+        <?php if($partenaire && $partenaire->status === 'active'): ?>
         <li class="nav-item menu-items">
             <a class="nav-link" href="<?php echo e(route('partenaire.index')); ?>">
                 <span class="menu-icon">
-                    <i class="mdi mdi-food"></i>
-
+                    <i class="mdi mdi-account-network"></i>
                 </span>
                 <span class="menu-title">Partenaire Commercial</span>
             </a>
         </li>
+        <?php endif; ?>
 
         <?php if(Auth::check() && Auth::user()->user_type==="admin"): ?>
         <li class="nav-item menu-items">
@@ -201,9 +216,7 @@
                     <i class="mdi mdi-account-plus"></i>
                 </span>
                 <span class="menu-title">Comptes actifs</span>
-
             </a>
-
         </li>
         <li class="nav-item menu-items">
             <a class="nav-link" href="<?php echo e(route('operateurs')); ?>">
@@ -211,9 +224,7 @@
                     <i class="mdi mdi-account-plus"></i>
                 </span>
                 <span class="menu-title">Opérateurs</span>
-
             </a>
-
         </li>
         <li class="nav-item menu-items">
             <a class="nav-link" href="<?php echo e(route('coming-soon')); ?>">
@@ -221,12 +232,9 @@
                     <i class="mdi mdi-security"></i>
                 </span>
                 <span class="menu-title">Gérer les utilisateur</span>
-
             </a>
-
         </li>
         <?php endif; ?>
-
     </ul>
 </nav>
 <script>
@@ -234,7 +242,6 @@
         const url = window.location.href;
 
         if (link.href === url) {
-
             link.parentElement.classList.add('active');
         }
     });

@@ -9,6 +9,7 @@ use App\Http\Controllers\LinkController;
 use App\Http\Controllers\OperateurController;
 use App\Http\Controllers\OperateurReseauController;
 use App\Http\Controllers\PartenaireCommercialController;
+use App\Http\Controllers\PartenaireController;
 use App\Http\Controllers\WalletController;
 
 /*
@@ -73,9 +74,17 @@ Route::middleware(['auth', 'phone.verify'])->group(function () {
 
 Route::get('/demande-operateur', [OperateurController::class, 'create'])
     ->name('demande.operateur')
-    ->middleware(['auth', 'operator']);
+    ->middleware(['auth']);
 Route::get('/info-operateur', [OperateurController::class, 'info'])
     ->name('info.operateur')
+    ->middleware(['auth']);
+
+
+Route::get('/demande-partenaire', [PartenaireController::class, 'create'])
+    ->name('demande.partenaire')
+    ->middleware(['auth', 'partenaire']);
+Route::get('/info-partenaire', [PartenaireController::class, 'info'])
+    ->name('info.partenaire')
     ->middleware(['auth']);
 
 //POST
@@ -118,4 +127,30 @@ Route::post('/update-operateur', [OperateurController::class, 'update_operateur_
     ->name('post-update-localite');
 Route::post('/chargement-balance', [OperateurController::class, 'chargement'])
     ->name('coin-chargemnt');
+
+
+//partenaires
+Route::middleware([
+    'auth',
+    'admin'
+])->group(function () {
+    Route::get('/partenaires', [PartenaireController::class, 'partenaires'])
+        ->name('partenaires');
+    Route::get('/chargement-partenaire', [PartenaireController::class, 'coin_balance'])
+        ->name('coin-create-partenaire');
+});
+Route::post('/post-activer-partenaire', [PartenaireController::class, 'activer'])
+    ->name('post-activer-partenaire');
+Route::post('/post-suspendre-partenaire', [PartenaireController::class, 'suspendre'])
+    ->name('post-suspendre-partenaire');
+Route::post('/post-deactiver-partenaire', [PartenaireController::class, 'deactiver'])
+    ->name('post-deactiver-partenaire');
+Route::post('/cash-partenaire', [PartenaireController::class, 'cash'])
+    ->name('cash-partenaire');
+Route::post('/post-partenaire', [PartenaireController::class, 'post_partenaire'])
+    ->name('post-partenaire');
+Route::post('/update-partenaire', [PartenaireController::class, 'update_partenaire_localite'])
+    ->name('post-update-localite-partenaire');
+Route::post('/chargement-balance-partenaire', [PartenaireController::class, 'chargement'])
+    ->name('coin-chargemnt-partenaire');
 
