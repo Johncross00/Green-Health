@@ -142,6 +142,11 @@ class User extends Authenticatable implements Wallet
         return $this->hasOne(Operator::class);
     }
 
+    public function partenaire()
+    {
+        return $this->hasOne(Partenaire::class);
+    }
+
     public function client()
     {
         return $this->belongsTo(OperatorClient::class, 'id');

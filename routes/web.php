@@ -82,7 +82,7 @@ Route::get('/info-operateur', [OperateurController::class, 'info'])
 
 Route::get('/demande-partenaire', [PartenaireController::class, 'create'])
     ->name('demande.partenaire')
-    ->middleware(['auth', 'partenaire']);
+    ->middleware(['auth']);
 Route::get('/info-partenaire', [PartenaireController::class, 'info'])
     ->name('info.partenaire')
     ->middleware(['auth']);

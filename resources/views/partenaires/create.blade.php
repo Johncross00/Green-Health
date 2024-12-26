@@ -1,4 +1,3 @@
-<?php
 @extends('layouts.index')
 @include('layouts.dash-head')
 @section('title','Demande')
