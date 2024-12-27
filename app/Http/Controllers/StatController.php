@@ -28,3 +28,4 @@ class StatController extends Controller
         return view('components.stat-bon', compact('currentYear', 'salesData', 'totalSales', 'averageSales', 'bestMonth'));
     }
 }
+//try to fix trans
