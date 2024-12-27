@@ -39,13 +39,17 @@ class BonController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'code' => 'required|unique:vouchers',
-            'discount' => 'required|numeric|min:0',
-            'valid_to' => 'required|date|after:today',
-            'usage_limit' => 'required|integer|min:1',
+            'price' => 'required|integer',
+            'date' => 'required|date',
+            'quantite' => 'required|integer'
         ]);
 
-        return $this->couponService->create($request->all());
+        try {
+            $this->couponService->create($request->all());
+            return redirect()->back()->with('success', 'Bon créé avec succès.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Une erreur est survenue lors de la création du bon.');
+        }
     }
     public function update(Request $request)
     {

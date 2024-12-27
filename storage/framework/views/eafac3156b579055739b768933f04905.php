@@ -1,8 +1,8 @@
  
  <?php echo $__env->make('layouts.dash-head', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-<?php $__env->startSection('title','Création de bon'); ?>
+ <?php $__env->startSection('title','Création de bon'); ?>
  <?php $__env->startSection('sidebar'); ?>
-<?php if (isset($component)) { $__componentOriginald31f0a1d6e85408eecaaa9471b609820 = $component; } ?>
+ <?php if (isset($component)) { $__componentOriginald31f0a1d6e85408eecaaa9471b609820 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald31f0a1d6e85408eecaaa9471b609820 = $attributes; } ?>
 <?php $component = App\View\Components\Sidebar::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('sidebar'); ?>
@@ -23,9 +23,9 @@
 <?php unset($__componentOriginald31f0a1d6e85408eecaaa9471b609820); ?>
 <?php endif; ?>
 
-<?php $__env->stopSection(); ?>
-<?php $__env->startSection('navbar'); ?>
-<?php if (isset($component)) { $__componentOriginalb9eddf53444261b5c229e9d8b9f1298e = $component; } ?>
+ <?php $__env->stopSection(); ?>
+ <?php $__env->startSection('navbar'); ?>
+ <?php if (isset($component)) { $__componentOriginalb9eddf53444261b5c229e9d8b9f1298e = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalb9eddf53444261b5c229e9d8b9f1298e = $attributes; } ?>
 <?php $component = App\View\Components\Navbar::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('navbar'); ?>
@@ -45,255 +45,278 @@
 <?php $component = $__componentOriginalb9eddf53444261b5c229e9d8b9f1298e; ?>
 <?php unset($__componentOriginalb9eddf53444261b5c229e9d8b9f1298e); ?>
 <?php endif; ?>
-<?php $__env->stopSection(); ?> 
-<?php $__env->startSection('sidebar-container'); ?> 
-<style>
-        .side-container-bg {
-            background: rgba(245, 251, 252, 1);
-        }
+ <?php $__env->stopSection(); ?>
+ <?php $__env->startSection('sidebar-container'); ?>
+ <?php if(session('success')): ?>
+ <div class="alert alert-success">
+     <?php echo e(session('success')); ?>
 
-        .container {
-            max-width: 600px;
-        }
+ </div>
+ <?php endif; ?>
 
-        .form-container {
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+ <?php if(session('error')): ?>
+ <div class="alert alert-danger">
+     <?php echo e(session('error')); ?>
 
-        .form-group {
-            margin-bottom: 15px;
-            position: relative;
-        }
+ </div>
+ <?php endif; ?>
 
-        .bon-mdi {
-            margin-right: 10px;
-        }
+ <?php if($errors->any()): ?>
+ <div class="alert alert-danger">
+     <ul>
+         <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+         <li><?php echo e($error); ?></li>
+         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+     </ul>
+ </div>
+ <?php endif; ?>
+ <style>
+     .side-container-bg {
+         background: rgba(245, 251, 252, 1);
+     }
 
-        .form-group .mdi {
-            position: absolute;
-            left: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #007bff;
-        }
+     .container {
+         max-width: 600px;
+     }
 
-        .form-control {
-            padding-left: 40px;
-            border: none;
-            border-bottom: 2px solid rgb(108, 108, 114);
-            border-radius: 0;
-            transition: border-color 0.3s;
-            outline: none;
-        }
+     .form-container {
+         background: #fff;
+         padding: 20px;
+         border-radius: 10px;
+         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+     }
 
-        .form-control:focus {
-            outline: none;
-            border-bottom: 2px solid #007bff;
-        }
+     .form-group {
+         margin-bottom: 15px;
+         position: relative;
+     }
 
-        .input-group-text {
-            border: none;
-            background: none;
-        }
+     .bon-mdi {
+         margin-right: 10px;
+     }
 
-        .form-check-input {
-            margin-top: 0.3rem;
-        }
+     .form-group .mdi {
+         position: absolute;
+         left: 10px;
+         top: 50%;
+         transform: translateY(-50%);
+         color: #007bff;
+     }
 
-        .error {
-            color: red;
-            font-size: 0.875rem;
-        }
+     .form-control {
+         padding-left: 40px;
+         border: none;
+         border-bottom: 2px solid rgb(108, 108, 114);
+         border-radius: 0;
+         transition: border-color 0.3s;
+         outline: none;
+     }
 
-        .valid {
-            border-bottom: 2px solid green;
-        }
+     .form-control:focus {
+         outline: none;
+         border-bottom: 2px solid #007bff;
+     }
 
-        @media (max-width: 768px) {
-            .container {
-                
-                padding: 0 15px; 
-            }
+     .input-group-text {
+         border: none;
+         background: none;
+     }
 
-            .form-container {
-                padding: 15px;
-            }
+     .form-check-input {
+         margin-top: 0.3rem;
+     }
 
-            .form-control {
-                padding-left: 35px;
-            }
-        }
-        .is-invalid {
-        border-bottom: 2px solid red !important;
-    }
+     .error {
+         color: red;
+         font-size: 0.875rem;
+     }
 
-    .is-valid {
-        border-bottom: 2px solid green !important;
-    }
+     .valid {
+         border-bottom: 2px solid green;
+     }
 
-    .error {
-        color: red;
-        font-size: 0.875rem;
-        margin-top: 5px;
-    }
+     @media (max-width: 768px) {
+         .container {
 
-    .readonly {
-        pointer-events: none;
-        opacity: 0.6;
-    }
-    .margin-top{
-        margin-top:60px;
-    }
-    </style>
+             padding: 0 15px;
+         }
 
-<div class="container d-flex justify-content-center align-items-center vh-100">
-    <div class="mt-5 w-100">
-        <h2 class="text-center text-primary mb-4">Création de bon de restauration</h2>
-        <form class="form-container  shadow-sm w-100" action="<?php echo e(route('bon-store')); ?>" method="post" onsubmit="return validateForm()">
-            <?php echo csrf_field(); ?>
-            <?php echo method_field('POST'); ?>
-            <div class="form-group">
-                <label for="price">Valeur</label>
-                <div class="input-group">
-                    <span class="input-group-text"><i class=" bon-mdi mdi mdi-cash"></i></span>
-                    <input type="number" class="form-control" id="price" placeholder="2000" name="price" required>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="quantite">Quantité</label>
-                <div class="input-group">
-                    <span class="input-group-text"><i class=" bon-mdi mdi mdi-counter"></i></span>
-                    <input type="number" class="form-control" id="quantite" name="quantite" required>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="date">Date d'expiration</label>
-                <div class="input-group">
-                    <span class="input-group-text"><i class="bon-mdi mdi mdi-calendar"></i></span>
-                    <input type="date" class="form-control" id="date" name="date" required>
-                </div>
-            </div>
-            <div class="text-center">
-                <button type="submit" class="btn btn-primary rounded shadow px-4">Créer <i class="mdi mdi-pencil"></i></button>
-            </div>
-        </form>
-    </div>
-</div>
+         .form-container {
+             padding: 15px;
+         }
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-    const form = document.querySelector('form');
-    const price = document.getElementById('price');
-    const quantite = document.getElementById('quantite');
-    const date = document.getElementById('date');
-    const submitButton = document.querySelector('button[type="submit"]');
+         .form-control {
+             padding-left: 35px;
+         }
+     }
 
-    const errorMessages = {
-        price: 'Valeur requise',
-        quantite: 'champ requis et doit être un entier',
-        date: 'Date d\'expiration requise'
-    };
+     .is-invalid {
+         border-bottom: 2px solid red !important;
+     }
 
-    const errorElements = {
-        price: createErrorElement(price),
-        quantite: createErrorElement(quantite),
-        date: createErrorElement(date)
-    };
+     .is-valid {
+         border-bottom: 2px solid green !important;
+     }
 
-    price.addEventListener('input', validateField);
-    quantite.addEventListener('input', validateField);
-    date.addEventListener('input', validateField);
-    form.addEventListener('submit', validateForm);
+     .error {
+         color: red;
+         font-size: 0.875rem;
+         margin-top: 5px;
+     }
 
-    function validateField(event) {
-        const field = event.target;
-        const value = field.value.trim();
-        let isValid = true;
+     .readonly {
+         pointer-events: none;
+         opacity: 0.6;
+     }
 
-        if (field === quantite || field === price) {
-            isValid = value !== '' && Number.isInteger(Number(value));
-        } else {
-            isValid = value !== '';
-        }
+     .margin-top {
+         margin-top: 60px;
+     }
+ </style>
 
-        if (isValid) {
-            field.classList.remove('is-invalid');
-            field.classList.add('is-valid');
-            errorElements[field.id].textContent = '';
-        } else {
-            field.classList.remove('is-valid');
-            field.classList.add('is-invalid');
-            errorElements[field.id].textContent = errorMessages[field.id];
-        }
+ <div class="container d-flex justify-content-center align-items-center vh-100">
+     <div class="mt-5 w-100">
+         <h2 class="text-center text-primary mb-4">Création de bon de restauration</h2>
+         <form class="form-container  shadow-sm w-100" action="<?php echo e(route('bon-store')); ?>" method="post" onsubmit="return validateForm()">
+             <?php echo csrf_field(); ?>
+             <?php echo method_field('POST'); ?>
+             <div class="form-group">
+                 <label for="price">Valeur</label>
+                 <div class="input-group">
+                     <span class="input-group-text"><i class=" bon-mdi mdi mdi-cash"></i></span>
+                     <input type="number" class="form-control" id="price" placeholder="2000" name="price" required>
+                 </div>
+             </div>
+             <div class="form-group">
+                 <label for="quantite">Quantité</label>
+                 <div class="input-group">
+                     <span class="input-group-text"><i class=" bon-mdi mdi mdi-counter"></i></span>
+                     <input type="number" class="form-control" id="quantite" name="quantite" required>
+                 </div>
+             </div>
+             <div class="form-group">
+                 <label for="date">Date d'expiration</label>
+                 <div class="input-group">
+                     <span class="input-group-text"><i class="bon-mdi mdi mdi-calendar"></i></span>
+                     <input type="date" class="form-control" id="date" name="date" required>
+                 </div>
+             </div>
+             <div class="text-center">
+                 <button type="submit" class="btn btn-primary rounded shadow px-4">Créer <i class="mdi mdi-pencil"></i></button>
+             </div>
+         </form>
+     </div>
+ </div>
 
-        validateButtonState();
-    }
+ <script>
+     document.addEventListener('DOMContentLoaded', function() {
+         const form = document.querySelector('form');
+         const price = document.getElementById('price');
+         const quantite = document.getElementById('quantite');
+         const date = document.getElementById('date');
+         const submitButton = document.querySelector('button[type="submit"]');
 
-    function validateForm(event) {
-        let isValid = true;
+         const errorMessages = {
+             price: 'Valeur requise',
+             quantite: 'champ requis et doit être un entier',
+             date: 'Date d\'expiration requise'
+         };
 
-        if (!validateFieldAndReturn(price)) isValid = false;
-        if (!validateFieldAndReturn(quantite)) isValid = false;
-        if (!validateFieldAndReturn(date)) isValid = false;
+         const errorElements = {
+             price: createErrorElement(price),
+             quantite: createErrorElement(quantite),
+             date: createErrorElement(date)
+         };
 
-        if (!isValid) {
-            event.preventDefault();
-        }
-    }
+         price.addEventListener('input', validateField);
+         quantite.addEventListener('input', validateField);
+         date.addEventListener('input', validateField);
+         form.addEventListener('submit', validateForm);
 
-    function validateFieldAndReturn(field) {
-        const value = field.value.trim();
-        let isValid = true;
+         function validateField(event) {
+             const field = event.target;
+             const value = field.value.trim();
+             let isValid = true;
 
-        if (field === quantite) {
-            isValid = value !== '' && Number.isInteger(Number(value));
-        } else {
-            isValid = value !== '';
-        }
+             if (field === quantite || field === price) {
+                 isValid = value !== '' && Number.isInteger(Number(value));
+             } else {
+                 isValid = value !== '';
+             }
 
-        if (isValid) {
-            field.classList.remove('is-invalid');
-            field.classList.add('is-valid');
-            errorElements[field.id].textContent = '';
-        } else {
-            field.classList.remove('is-valid');
-            field.classList.add('is-invalid');
-            errorElements[field.id].textContent = errorMessages[field.id];
-        }
+             if (isValid) {
+                 field.classList.remove('is-invalid');
+                 field.classList.add('is-valid');
+                 errorElements[field.id].textContent = '';
+             } else {
+                 field.classList.remove('is-valid');
+                 field.classList.add('is-invalid');
+                 errorElements[field.id].textContent = errorMessages[field.id];
+             }
 
-        return isValid;
-    }
+             validateButtonState();
+         }
 
-    function validateButtonState() {
-        const isFormValid = price.classList.contains('is-valid') &&
-                            quantite.classList.contains('is-valid') &&
-                            date.classList.contains('is-valid');
+         function validateForm(event) {
+             let isValid = true;
 
-        if (isFormValid) {
-            submitButton.classList.remove('readonly');
-            submitButton.classList.remove('btn-danger');
-            submitButton.classList.add('btn-primary');
-            submitButton.disabled = false;
-        } else {
-            submitButton.classList.add('readonly');
-            submitButton.classList.add('btn-danger');
-            submitButton.classList.remove('btn-primary');
-            submitButton.disabled = true;
-        }
-    }
+             if (!validateFieldAndReturn(price)) isValid = false;
+             if (!validateFieldAndReturn(quantite)) isValid = false;
+             if (!validateFieldAndReturn(date)) isValid = false;
 
-    function createErrorElement(field) {
-        const errorElement = document.createElement('div');
-        errorElement.className = 'error';
-        field.parentNode.appendChild(errorElement);
-        return errorElement;
-    }
-});
+             if (!isValid) {
+                 event.preventDefault();
+             }
+         }
 
-    </script>
-   <?php $__env->stopSection(); ?>
+         function validateFieldAndReturn(field) {
+             const value = field.value.trim();
+             let isValid = true;
 
+             if (field === quantite) {
+                 isValid = value !== '' && Number.isInteger(Number(value));
+             } else {
+                 isValid = value !== '';
+             }
+
+             if (isValid) {
+                 field.classList.remove('is-invalid');
+                 field.classList.add('is-valid');
+                 errorElements[field.id].textContent = '';
+             } else {
+                 field.classList.remove('is-valid');
+                 field.classList.add('is-invalid');
+                 errorElements[field.id].textContent = errorMessages[field.id];
+             }
+
+             return isValid;
+         }
+
+         function validateButtonState() {
+             const isFormValid = price.classList.contains('is-valid') &&
+                 quantite.classList.contains('is-valid') &&
+                 date.classList.contains('is-valid');
+
+             if (isFormValid) {
+                 submitButton.classList.remove('readonly');
+                 submitButton.classList.remove('btn-danger');
+                 submitButton.classList.add('btn-primary');
+                 submitButton.disabled = false;
+             } else {
+                 submitButton.classList.add('readonly');
+                 submitButton.classList.add('btn-danger');
+                 submitButton.classList.remove('btn-primary');
+                 submitButton.disabled = true;
+             }
+         }
+
+         function createErrorElement(field) {
+             const errorElement = document.createElement('div');
+             errorElement.className = 'error';
+             field.parentNode.appendChild(errorElement);
+             return errorElement;
+         }
+     });
+ </script>
+ <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.index', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Laravel\35-Sant--main\resources\views/coupons/create.blade.php ENDPATH**/ ?>

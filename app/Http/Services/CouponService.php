@@ -64,16 +64,13 @@ class CouponService
     }
     public function create(array $data)
     {
-       
-        $data['code']=$this->getCode();
-        $coupon=$this->couponRepository->getByPrice($data['price']);
-        if(isset($coupon))
-        {
-            return redirect()->back()->with('error','Bon avec ce prix est déja defini..');  
+        $data['code'] = $this->getCode();
+        $coupon = $this->couponRepository->getByPrice($data['price']);
+        if ($coupon) {
+            return redirect()->back()->with('error', 'Un bon avec ce prix existe déjà.');
         }
         $this->couponRepository->create($data);
-        return redirect()->back()->with('success','Bon crée avec  succes');
-
+        return redirect()->back()->with('success', 'Bon créé avec succès.');
     }
     public function update(array $data)
     {
