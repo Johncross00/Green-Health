@@ -29,3 +29,4 @@ class StatController extends Controller
     }
 }
 //try to fix trans
+//try to fix all migr
