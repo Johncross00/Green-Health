@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BonController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\CodeController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\LinkController;
 use App\Http\Controllers\OperateurController;
 use App\Http\Controllers\OperateurReseauController;
@@ -35,6 +36,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/operateur_reseau', [OperateurReseauController::class, 'index'])->name('operateur.index');
     Route::get('/partenaire_commmercial', [PartenaireCommercialController::class, 'index'])->name('partenaire.index');
     Route::post('coupon/{coupon}/activate', [BonController::class, 'activate'])->name('coupon.activate');
+    Route::post('/coupon/buy', [WalletController::class, 'buyCoupon'])->name('buy.coupon');
+    Route::get('/mes-bons', [CouponController::class, 'showUserCoupons'])->name('user.coupons');
 
 });
 //reset

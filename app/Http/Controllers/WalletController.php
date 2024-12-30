@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\TransactionsExport;
+use App\Models\Coupon;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use PDF;
 class WalletController extends Controller
@@ -20,84 +21,102 @@ class WalletController extends Controller
     public function show()
     {
         $wallet = Auth::user()->wallet;
-        return view('wallet.show', compact('wallet'));
+        $coupons = Coupon::all();
+        return view('wallet.show', compact('wallet', 'coupons'));
     }
 
     // Achat de bon
     public function buyCoupon(Request $request)
     {
-        $wallet = Auth::user()->wallet;
-        $amount = $request->amount;
+        $request->validate([
+            'bon_id' => 'required|exists:coupons,id',
+        ]);
 
-        if ($wallet->balance >= $amount) {
-            $wallet->balance -= $amount;
-            $wallet->save();
+        $coupon = Coupon::find($request->bon_id);
+        $user = Auth::user();
 
-            Transaction::create([
-                'wallet_id' => $wallet->id,
-                'amount' => -$amount,
-                'type' => 'achat_bon'
+        if ($user->wallet->balance < $coupon->price) {
+            return redirect()->back()->with('error', 'Solde insuffisant pour acheter ce bon.');
+        }
+
+        DB::beginTransaction();
+
+        try {
+            // Déduire le montant du bon du portefeuille de l'utilisateur
+            $user->wallet->balance -= $coupon->price;
+            $user->wallet->save();
+
+            // Associer le bon à l'utilisateur
+            // Vous pouvez créer une table pivot user_coupon pour gérer cette relation
+            DB::table('user_coupon')->insert([
+                'user_id' => $user->id,
+                'coupon_id' => $coupon->id,
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
 
-            return redirect()->back()->with('success', 'Achat de bon réussi.');
-        } else {
-            return redirect()->back()->with('error', 'Solde insuffisant.');
+            DB::commit();
+
+            return redirect()->back()->with('success', 'Bon acheté avec succès.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Une erreur est survenue lors de l\'achat du bon.');
         }
     }
 
     // Retrait d'argent
-    public function withdraw(Request $request)
-    {
-        $wallet = Auth::user()->wallet;
-        $amount = $request->amount;
+    // public function withdraw(Request $request)
+    // {
+    //     $wallet = Auth::user()->wallet;
+    //     $amount = $request->amount;
 
-        if ($wallet->balance >= $amount) {
-            $wallet->balance -= $amount;
-            $wallet->save();
+    //     if ($wallet->balance >= $amount) {
+    //         $wallet->balance -= $amount;
+    //         $wallet->save();
 
-            Transaction::create([
-                'wallet_id' => $wallet->id,
-                'amount' => -$amount,
-                'type' => 'retrait'
-            ]);
+    //         Transaction::create([
+    //             'wallet_id' => $wallet->id,
+    //             'amount' => -$amount,
+    //             'type' => 'retrait'
+    //         ]);
 
-            return redirect()->back()->with('success', 'Retrait effectué avec succès.');
-        } else {
-            return redirect()->back()->with('error', 'Solde insuffisant.');
-        }
-    }
+    //         return redirect()->back()->with('success', 'Retrait effectué avec succès.');
+    //     } else {
+    //         return redirect()->back()->with('error', 'Solde insuffisant.');
+    //     }
+    // }
 
     // Transfert inter réseau
-    public function transfer(Request $request)
-    {
-        $wallet = Auth::user()->wallet;
-        $recipientWallet = Wallet::where('user_id', $request->recipient_id)->first();
-        $amount = $request->amount;
+    // public function transfer(Request $request)
+    // {
+    //     $wallet = Auth::user()->wallet;
+    //     $recipientWallet = Wallet::where('user_id', $request->recipient_id)->first();
+    //     $amount = $request->amount;
 
-        if ($wallet->balance >= $amount) {
-            $wallet->balance -= $amount;
-            $recipientWallet->balance += $amount;
+    //     if ($wallet->balance >= $amount) {
+    //         $wallet->balance -= $amount;
+    //         $recipientWallet->balance += $amount;
 
-            $wallet->save();
-            $recipientWallet->save();
+    //         $wallet->save();
+    //         $recipientWallet->save();
 
-            Transaction::create([
-                'wallet_id' => $wallet->id,
-                'amount' => -$amount,
-                'type' => 'transfert_sortant'
-            ]);
+    //         Transaction::create([
+    //             'wallet_id' => $wallet->id,
+    //             'amount' => -$amount,
+    //             'type' => 'transfert_sortant'
+    //         ]);
 
-            Transaction::create([
-                'wallet_id' => $recipientWallet->id,
-                'amount' => $amount,
-                'type' => 'transfert_entrant'
-            ]);
+    //         Transaction::create([
+    //             'wallet_id' => $recipientWallet->id,
+    //             'amount' => $amount,
+    //             'type' => 'transfert_entrant'
+    //         ]);
 
-            return redirect()->back()->with('success', 'Transfert réussi.');
-        } else {
-            return redirect()->back()->with('error', 'Solde insuffisant.');
-        }
-    }
+    //         return redirect()->back()->with('success', 'Transfert réussi.');
+    //     } else {
+    //         return redirect()->back()->with('error', 'Solde insuffisant.');
+    //     }
+    // }
 
     // Historique des transactions
     public function history()
@@ -279,4 +298,6 @@ class WalletController extends Controller
         
         return redirect()->back()->with('error', 'Format inconnu.');
     }
+
 }
+

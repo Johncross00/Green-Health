@@ -71,4 +71,9 @@ class Coupon extends Model
             'status' => 'active',
         ]);
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'user_coupon')->withTimestamps();
+    }
 }

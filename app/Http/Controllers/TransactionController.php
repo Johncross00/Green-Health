@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Services\TransactionService;
 use App\Http\Services\CouponService;
+use App\Models\Coupon;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
@@ -33,7 +35,9 @@ class TransactionController extends Controller
     }
     public function portefeuille()
     {
-        return view('layouts.portefeuille');
+        // $wallet = Auth::user()->wallet;
+        $coupons = Coupon::all();
+        return view('layouts.portefeuille', compact('coupons'));
     }
     public function post_jetons(Request $request)
     {

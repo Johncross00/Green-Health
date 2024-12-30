@@ -165,4 +165,11 @@ class User extends Authenticatable implements Wallet
             return $trans->bon && Carbon::parse($trans->bon->date)->lt(Carbon::now());
         })->count();
     }
+
+
+
+    public function coupons()
+    {
+        return $this->belongsToMany(Coupon::class, 'user_coupon')->withTimestamps();
+    }
 }

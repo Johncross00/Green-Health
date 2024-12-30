@@ -171,8 +171,18 @@
                 <span class="menu-title">Mes transactions</span>
             </a>
         </li>
+
         <li class="nav-item menu-items">
-            <a class="nav-link" href="<?php echo e(route('mes-validation')); ?>">
+            <a class="nav-link" href="<?php echo e(route('user.coupons')); ?>">
+                <span class="menu-icon">
+                    <i class="bi bi-ticket"></i>
+                </span>
+                <span class="menu-title">Mes bons</span>
+            </a>
+        </li>
+
+        <li class="nav-item menu-items">
+            <a class="nav-link" href="<?php echo e(route('user.coupons')); ?>">
                 <span class="menu-icon">
                     <i class="mdi mdi-check"></i>
                 </span>
