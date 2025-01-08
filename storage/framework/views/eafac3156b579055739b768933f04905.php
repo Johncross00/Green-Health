@@ -181,6 +181,13 @@
              <?php echo csrf_field(); ?>
              <?php echo method_field('POST'); ?>
              <div class="form-group">
+                 <label for="name">Nom du Coupon</label>
+                 <div class="input-group">
+                     <span class="input-group-text"><i class="bon-mdi mdi mdi-tag"></i></span>
+                     <input type="text" class="form-control" id="name" name="name" placeholder="Nom du coupon" required>
+                 </div>
+             </div>
+             <div class="form-group">
                  <label for="price">Valeur</label>
                  <div class="input-group">
                      <span class="input-group-text"><i class=" bon-mdi mdi mdi-cash"></i></span>

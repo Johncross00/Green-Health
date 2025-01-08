@@ -39,6 +39,7 @@ class BonController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'name' => 'required|string|max:255',
             'price' => 'required|integer',
             'date' => 'required|date',
             'quantite' => 'required|integer'
