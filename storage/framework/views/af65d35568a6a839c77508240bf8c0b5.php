@@ -49,7 +49,7 @@
 <?php $__env->startSection('sidebar-container'); ?>
 <style>
     .side-container-bg {
-        background: rgba(245, 251, 252, 1);
+        background: rgba(245, 251, 252, 0.5);
     }
 
     body {
@@ -59,26 +59,16 @@
     .card {
         border: none;
         border-radius: 20px;
-        /* Coins arrondis */
-        background: rgba(255, 221, 0, 0.5);
-        /* Fond semi-transparent */
-        backdrop-filter: blur(10px);
-        /* Effet de flou */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-        /* Ajout d'une ombre subtile */
-        transition: transform 0.3s ease;
-        /* Animation de transformation */
+        background: rgba(255, 255, 255, 0.8); /* Fond blanc plus prononcé */
+        backdrop-filter: blur(10px); /* Effet de flou */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+        border: 1px solid rgba(255, 255, 255, 0.3); /* Bordure subtile */
+        transition: transform 0.3s ease, background 0.3s ease; /* Animation de transformation et de fond */
     }
 
     .card:hover {
         transform: scale(1.05);
-        /* Effet de zoom au survol */
-    }
-
-    .card-title {
-        color: orange;
-        /* Couleur orange pour le titre */
-        font-weight: bold;
+        background: rgba(255, 255, 255, 0.9); /* Fond légèrement plus opaque au survol */
     }
 
     .card-title {
@@ -101,32 +91,26 @@
         padding: 20px;
     }
 
-    /* Gestion de l'alignement horizontal des cartes */
     .row {
         display: flex;
         flex-wrap: wrap;
         gap: 20px;
-        /* Espacement entre les cartes */
         justify-content: left;
-        /* Alignement à gauche */
     }
 
     .col-md-6 {
         flex: 0 0 calc(33.3333% - 20px);
-        /* Ajustement de la largeur des cartes */
     }
 
     @media (max-width: 768px) {
         .col-md-6 {
             flex: 0 0 calc(50% - 20px);
-            /* Cartes plus petites sur les écrans moyens */
         }
     }
 
     @media (max-width: 576px) {
         .col-md-6 {
             flex: 0 0 100%;
-            /* Cartes qui prennent toute la largeur sur les petits écrans */
         }
     }
 </style>
@@ -141,19 +125,47 @@ $user = Auth::user();
             <?php if($coupons->isEmpty()): ?>
             <p>Vous ne possédez aucun bon pour le moment.</p>
             <?php else: ?>
-            <div class="row">
+            <section class="row g-3">
                 <?php $__currentLoopData = $coupons; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $coupon): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <div class="col-md-6">
-                    <div class="card mb-5">
-                        <div class="card-body">
-                            <h5 class="card-title"><?php echo e($coupon->code); ?></h5>
-                            <p class="card-text">Prix: <?php echo e($coupon->price); ?> Fcfa</p>
-                            <p class="card-text">Description: <?php echo e($coupon->description); ?></p>
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                    <div class="card h-100 position-relative border-0 shadow-sm <?php echo e($coupon->quantite === 0 ? 'opacity-50' : ''); ?>"
+                        style="background: rgba(255, 255, 255, 0.8); border-radius: 15px; overflow: hidden;">
+                        <div class="card-header text-center bg-warning text-dark fw-bolder fs-6 py-2 text-uppercase">
+                            <?php echo e($coupon->name); ?>
+
+                        </div>
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center p-2">
+                            <div class="rounded-circle p-2 bg-warning shadow-sm mb-2" style="width: 50px; height: 50px;">
+                                <?php if (isset($component)) { $__componentOriginala1a18fe69b4abd0c1e17913cd53155c2 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginala1a18fe69b4abd0c1e17913cd53155c2 = $attributes; } ?>
+<?php $component = App\View\Components\DollarIcon::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('dollar-icon'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(App\View\Components\DollarIcon::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['class' => 'text-white','style' => 'font-size: 1.2rem;']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginala1a18fe69b4abd0c1e17913cd53155c2)): ?>
+<?php $attributes = $__attributesOriginala1a18fe69b4abd0c1e17913cd53155c2; ?>
+<?php unset($__attributesOriginala1a18fe69b4abd0c1e17913cd53155c2); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginala1a18fe69b4abd0c1e17913cd53155c2)): ?>
+<?php $component = $__componentOriginala1a18fe69b4abd0c1e17913cd53155c2; ?>
+<?php unset($__componentOriginala1a18fe69b4abd0c1e17913cd53155c2); ?>
+<?php endif; ?>
+                            </div>
+                            <div class="text-center">
+                                <p class="mb-1 fs-6"><strong><?php echo e($coupon->quantite); ?></strong> en stock</p>
+                                <p class="mb-0 fs-6 text-warning"><strong><?php echo e(number_format($coupon->price, 0, ',', ' ')); ?></strong> Fcfa</p>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-            </div>
+            </section>
             <?php endif; ?>
         </div>
     </div>
