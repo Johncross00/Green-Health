@@ -1,9 +1,9 @@
 <?php $attributes ??= new \Illuminate\View\ComponentAttributeBag; ?>
-<?php foreach($attributes->onlyProps(['coupons'=>null]) as $__key => $__value) {
+<?php foreach($attributes->onlyProps(['coupons' => null]) as $__key => $__value) {
     $$__key = $$__key ?? $__value;
 } ?>
-<?php $attributes = $attributes->exceptProps(['coupons'=>null]); ?>
-<?php foreach (array_filter((['coupons'=>null]), 'is_string', ARRAY_FILTER_USE_KEY) as $__key => $__value) {
+<?php $attributes = $attributes->exceptProps(['coupons' => null]); ?>
+<?php foreach (array_filter((['coupons' => null]), 'is_string', ARRAY_FILTER_USE_KEY) as $__key => $__value) {
     $$__key = $$__key ?? $__value;
 } ?>
 <?php $__defined_vars = get_defined_vars(); ?>
@@ -11,14 +11,21 @@
     if (array_key_exists($__key, $__defined_vars)) unset($$__key);
 } ?>
 <?php unset($__defined_vars); ?>
-<h4 class="text-white">Liste des bons</h4>
-<section class="d-flex row g-4">
+
+<h4 class="text-white mb-4">Liste des bons</h4>
+<section class="row g-3">
     <?php $__currentLoopData = $coupons; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $coupon): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 g-1">
-            <div class="card h-100 border-none position-relative bg-dark <?php echo e($coupon->quantite === 0 ? 'border-danger text-secondary opacity-25' : ''); ?>">
-                <div class="card-body d-flex align-items-center justify-content-center">
-                    <div class="rounded-circle p-2 bg-warning shadow-lg">
-                        <?php if (isset($component)) { $__componentOriginala1a18fe69b4abd0c1e17913cd53155c2 = $component; } ?>
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+        <div class="card h-100 position-relative border-0 shadow-sm <?php echo e($coupon->quantite === 0 ? 'opacity-50' : ''); ?>"
+            style="background: rgba(255, 255, 255, 0.2); border-radius: 15px; overflow: hidden;">
+            <!-- Mise en avant du nom du coupon -->
+            <div class="card-header text-center bg-warning text-dark fw-bolder fs-6 py-2 text-uppercase">
+                <?php echo e($coupon->name); ?>
+
+            </div>
+            <div class="card-body d-flex flex-column align-items-center justify-content-center p-2">
+                <div class="rounded-circle p-2 bg-warning shadow-sm mb-2" style="width: 50px; height: 50px;">
+                    <?php if (isset($component)) { $__componentOriginala1a18fe69b4abd0c1e17913cd53155c2 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginala1a18fe69b4abd0c1e17913cd53155c2 = $attributes; } ?>
 <?php $component = App\View\Components\DollarIcon::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('dollar-icon'); ?>
@@ -27,7 +34,7 @@
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(App\View\Components\DollarIcon::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['class' => 'text-white']); ?>
+<?php $component->withAttributes(['class' => 'text-white','style' => 'font-size: 1.2rem;']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginala1a18fe69b4abd0c1e17913cd53155c2)): ?>
@@ -38,18 +45,14 @@
 <?php $component = $__componentOriginala1a18fe69b4abd0c1e17913cd53155c2; ?>
 <?php unset($__componentOriginala1a18fe69b4abd0c1e17913cd53155c2); ?>
 <?php endif; ?>
-                    </div>
                 </div>
-                <div class="card-footer d-flex justify-content-between">
-                    <div class="">
-                        <?php echo e($coupon->quantite); ?> en stock
-                    </div>
-                    <div class="">
-                        <?php echo e($coupon->price); ?> Fcfa
-                    </div>
+                <!-- Quantité et prix en dessous de l'icône -->
+                <div class="text-center">
+                    <p class="mb-1 fs-6"><strong><?php echo e($coupon->quantite); ?></strong> en stock</p>
+                    <p class="mb-0 fs-6 text-warning"><strong><?php echo e(number_format($coupon->price, 0, ',', ' ')); ?></strong> Fcfa</p>
                 </div>
             </div>
         </div>
+    </div>
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-</section>
-<?php /**PATH C:\Laravel\35-Sant--main\resources\views/components/coupon-list.blade.php ENDPATH**/ ?>
+</section><?php /**PATH C:\Laravel\35-Sant--main\resources\views/components/coupon-list.blade.php ENDPATH**/ ?>
