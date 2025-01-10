@@ -44,84 +44,87 @@
 <?php $component = $__componentOriginalb9eddf53444261b5c229e9d8b9f1298e; ?>
 <?php unset($__componentOriginalb9eddf53444261b5c229e9d8b9f1298e); ?>
 <?php endif; ?>
-<?php $__env->stopSection(); ?> 
+<?php $__env->stopSection(); ?>
 <?php $__env->startSection('sidebar-container'); ?>
 <style>
-   .side-container-bg {
-            background: rgba(245, 251, 252, 1);
-        }
+    .side-container-bg {
+        background: rgba(245, 251, 252, 1);
+    }
 
     .container {
-            max-width: 600px;
-        }
-        .form-control {
-            padding-left: 40px;
-            border: none;
-            border-bottom: 2px solid rgb(108, 108, 114);
-            border-radius: 0;
-            transition: border-color 0.3s;
-            outline: none;
+        max-width: 600px;
+    }
+
+    .form-control {
+        padding-left: 40px;
+        border: none;
+        border-bottom: 2px solid rgb(108, 108, 114);
+        border-radius: 0;
+        transition: border-color 0.3s;
+        outline: none;
+    }
+
+    .form-container {
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-label {
+        margin-top: 10px;
+    }
+
+    .btn-primary {
+        background-color: rgb(0, 81, 255);
+        border-color: blue;
+        margin-top: 20px;
+        width: 100%;
+    }
+
+    .btn-primary:hover {
+        background-color: #3778d4;
+        border-color: #3792d4;
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            padding: 0 15px;
         }
 
         .form-container {
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 15px;
         }
 
-        .form-label {
-            margin-top: 10px;
+        .form-control {
+            padding-left: 35px;
         }
+    }
 
-        .btn-primary {
-            background-color: rgb(0, 81, 255);
-            border-color: blue;
-            margin-top: 20px;
-            width: 100%;
-        }
+    .error {
+        color: red;
+        font-size: 0.875rem;
+        margin-top: 5px;
+    }
 
-        .btn-primary:hover {
-            background-color: #3778d4;
-            border-color: #3792d4;
-        }
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 15px;
-            }
+    .is-invalid {
+        border-bottom: 2px solid red !important;
+    }
 
-            .form-container {
-                padding: 15px;
-            }
+    .is-valid {
+        border-bottom: 2px solid green !important;
+    }
 
-            .form-control {
-                padding-left: 35px;
-            }
-        }
+    .form-group {
+        margin-bottom: 15px;
+        position: relative;
+    }
 
-        .error {
-            color: red;
-            font-size: 0.875rem;
-            margin-top: 5px;
-        }
-
-        .is-invalid {
-            border-bottom: 2px solid red !important;
-        }
-
-        .is-valid {
-            border-bottom: 2px solid green !important;
-        }
-        .form-group {
-            margin-bottom: 15px;
-            position: relative;
-        }
-
-        .readonly {
-            pointer-events: none;
-            opacity: 0.6;
-        }
-    </style>
+    .readonly {
+        pointer-events: none;
+        opacity: 0.6;
+    }
+</style>
 </head>
 
 <body>
@@ -131,12 +134,14 @@
             <form id="myForm w-100" class="form-container" action="<?php echo e(route('bon-ravita')); ?>" method="POST">
                 <?php echo csrf_field(); ?>
                 <?php echo method_field("POST"); ?>
-                <div class=" form-group mb-3">
-                    <label for="coupon_code" class="form-label">Prix du Coupon</label>
+                <div class="form-group mb-3">
+                    <label for="coupon_code" class="form-label">Nom du Coupon</label>
                     <select class="form-control" id="coupon_code" name="coupon_price" required>
-                        <option disabled selected>Selectionnez coupon par son prix</option>
+                        <option disabled selected>Selectionnez coupon</option>
                         <?php $__currentLoopData = $coupons; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $coupon): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <option id="<?php echo e($coupon->id); ?>" value="<?php echo e($coupon->price); ?>"><?php echo e($coupon->price); ?></option>
+                        <option id="<?php echo e($coupon->id); ?>" value="<?php echo e($coupon->price); ?>">
+                            <?php echo e($coupon->name); ?> - <?php echo e(number_format($coupon->price, 0, ',', ' ')); ?> Fcfa - <?php echo e($coupon->quantite); ?> en stock
+                        </option>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </select>
                     <div class="error" id="coupon_code-error"></div>
@@ -155,105 +160,104 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-    const form = document.querySelector('form');
-    const couponCode = document.getElementById('coupon_code');
-    const quantite = document.getElementById('quantite');
-    const submitButton = document.getElementById('submitBtn');
+            const form = document.querySelector('form');
+            const couponCode = document.getElementById('coupon_code');
+            const quantite = document.getElementById('quantite');
+            const submitButton = document.getElementById('submitBtn');
 
-    const errorMessages = {
-        coupon_code: 'Veuillez sélectionner un coupon',
-        quantite: 'Quantité requise et doit être un entier'
-    };
+            const errorMessages = {
+                coupon_code: 'Veuillez sélectionner un coupon',
+                quantite: 'Quantité requise et doit être un entier'
+            };
 
-    const errorElements = {
-        coupon_code: document.getElementById('coupon_code-error'),
-        quantite: document.getElementById('qte-error')
-    };
+            const errorElements = {
+                coupon_code: document.getElementById('coupon_code-error'),
+                quantite: document.getElementById('qte-error')
+            };
 
-    couponCode.addEventListener('input', validateField);
-    quantite.addEventListener('input', validateField);
-    form.addEventListener('submit', validateForm);
+            couponCode.addEventListener('input', validateField);
+            quantite.addEventListener('input', validateField);
+            form.addEventListener('submit', validateForm);
 
-    function validateField(event) {
-        const field = event.target;
-       
-        const value = field.value.trim();
-        let isValid = true;
+            function validateField(event) {
+                const field = event.target;
 
-        if (field === quantite) {
-            isValid = value !== '' && Number.isInteger(Number(value));
-        } else {
-            isValid = value !== '';
-        }
+                const value = field.value.trim();
+                let isValid = true;
 
-        if (isValid) {
-            field.classList.remove('is-invalid');
-            field.classList.add('is-valid');
-            errorElements[field.id].textContent = '';
-        } else {
-            field.classList.remove('is-valid');
-            field.classList.add('is-invalid');
-            errorElements[field.id].textContent = errorMessages[field.id];
-        }
+                if (field === quantite) {
+                    isValid = value !== '' && Number.isInteger(Number(value));
+                } else {
+                    isValid = value !== '';
+                }
 
-        validateButtonState();
-    }
+                if (isValid) {
+                    field.classList.remove('is-invalid');
+                    field.classList.add('is-valid');
+                    errorElements[field.id].textContent = '';
+                } else {
+                    field.classList.remove('is-valid');
+                    field.classList.add('is-invalid');
+                    errorElements[field.id].textContent = errorMessages[field.id];
+                }
 
-    function validateForm(event) {
-        let isValid = true;
+                validateButtonState();
+            }
 
-        if (!validateFieldAndReturn(couponCode)) isValid = false;
-        if (!validateFieldAndReturn(quantite)) isValid = false;
+            function validateForm(event) {
+                let isValid = true;
 
-        if (!isValid) {
-            event.preventDefault();
-        }
-    }
+                if (!validateFieldAndReturn(couponCode)) isValid = false;
+                if (!validateFieldAndReturn(quantite)) isValid = false;
 
-    function validateFieldAndReturn(field) {
-        const value = field.value.trim();
-        let isValid = true;
+                if (!isValid) {
+                    event.preventDefault();
+                }
+            }
 
-        if (field === quantite) {
-            isValid = value !== '' && Number.isInteger(Number(value));
-        } else {
-            isValid = value !== '';
-        }
+            function validateFieldAndReturn(field) {
+                const value = field.value.trim();
+                let isValid = true;
 
-        if (isValid) {
-            field.classList.remove('is-invalid');
-            field.classList.add('is-valid');
-            errorElements[field.id].textContent = '';
-        } else {
-            field.classList.remove('is-valid');
-            field.classList.add('is-invalid');
-            errorElements[field.id].textContent = errorMessages[field.id];
-        }
+                if (field === quantite) {
+                    isValid = value !== '' && Number.isInteger(Number(value));
+                } else {
+                    isValid = value !== '';
+                }
 
-        return isValid;
-    }
+                if (isValid) {
+                    field.classList.remove('is-invalid');
+                    field.classList.add('is-valid');
+                    errorElements[field.id].textContent = '';
+                } else {
+                    field.classList.remove('is-valid');
+                    field.classList.add('is-invalid');
+                    errorElements[field.id].textContent = errorMessages[field.id];
+                }
 
-    function validateButtonState() {
-        const isFormValid = couponCode.classList.contains('is-valid') &&
-                            quantite.classList.contains('is-valid');
+                return isValid;
+            }
+
+            function validateButtonState() {
+                const isFormValid = couponCode.classList.contains('is-valid') &&
+                    quantite.classList.contains('is-valid');
 
 
-                           
 
-        if (isFormValid) {
-            submitButton.classList.remove('readonly');
-            submitButton.classList.remove('btn-danger');
-            submitButton.classList.add('btn-primary');
-            submitButton.disabled = false;
-        } else {
-            submitButton.classList.add('readonly');
-            submitButton.classList.add('btn-danger');
-            submitButton.classList.remove('btn-primary');
-            submitButton.disabled = true;
-        }
-    }
-});
-</script>
-   <?php $__env->stopSection(); ?>
 
+                if (isFormValid) {
+                    submitButton.classList.remove('readonly');
+                    submitButton.classList.remove('btn-danger');
+                    submitButton.classList.add('btn-primary');
+                    submitButton.disabled = false;
+                } else {
+                    submitButton.classList.add('readonly');
+                    submitButton.classList.add('btn-danger');
+                    submitButton.classList.remove('btn-primary');
+                    submitButton.disabled = true;
+                }
+            }
+        });
+    </script>
+    <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.index', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Laravel\35-Sant--main\resources\views/coupons/ravitailler.blade.php ENDPATH**/ ?>
