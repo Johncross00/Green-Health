@@ -277,7 +277,7 @@
 
 <!-- Modal pour l'achat de bons -->
 <div class="modal fade" id="achatBonModal" tabindex="-1" aria-labelledby="achatBonModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="achatBonModalLabel">Acheter un Bon</h5>
@@ -288,11 +288,30 @@
                     @csrf
                     <div class="mb-3">
                         <label for="bon_id" class="form-label">Sélectionnez un Bon</label>
-                        <select class="form-select" id="bon_id" name="bon_id" required>
+                        <div class="row g-3">
                             @foreach($coupons as $coupon)
-                            <option value="{{ $coupon->id }}">{{ $coupon->code }} - {{ $coupon->price }} Fcfa</option>
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                                <input type="radio" class="btn-check" name="bon_id" id="bon_{{ $coupon->id }}" value="{{ $coupon->id }}" required>
+                                <label class="btn btn-outline-primary w-100 h-100" for="bon_{{ $coupon->id }}">
+                                    <div class="card h-100 position-relative border-0 shadow-sm {{ $coupon->quantite === 0 ? 'opacity-50' : '' }}"
+                                        style="background: rgba(255, 255, 255, 0.8); border-radius: 20px; overflow: hidden;">
+                                        <div class="card-header text-center bg-warning text-dark fw-bolder fs-6 py-2 text-uppercase">
+                                            {{$coupon->name}}
+                                        </div>
+                                        <div class="card-body d-flex flex-column align-items-center justify-content-center p-2">
+                                            <div class="rounded-circle p-2 bg-warning shadow-sm mb-2" style="width: 50px; height: 50px;">
+                                                <x-dollar-icon class="text-white" style="font-size: 1.2rem;" />
+                                            </div>
+                                            <div class="text-center">
+                                                <p class="mb-1 fs-6"><strong>{{ $coupon->quantite }}</strong> en stock</p>
+                                                <p class="mb-0 fs-6 text-warning"><strong>{{ number_format($coupon->price, 0, ',', ' ') }}</strong> Fcfa</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
                             @endforeach
-                        </select>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary w-100">Acheter</button>
                 </form>
@@ -308,8 +327,63 @@
     </div>
 </div>
 
+<style>
+    .modal-content {
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.8);
+        /* Fond blanc plus prononcé */
+        backdrop-filter: blur(10px);
+        /* Effet de flou */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        /* Ombre subtile */
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        /* Bordure subtile */
+    }
 
+    .modal-header {
+        background: rgba(255, 221, 0, 0.8);
+        /* Fond jaune pour le header */
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        /* Bordure subtile */
+    }
 
+    .modal-title {
+        color: #333;
+        font-weight: bold;
+    }
+
+    .form-select {
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        /* Bordure subtile */
+        background: rgba(255, 255, 255, 0.8);
+        /* Fond blanc plus prononcé */
+        backdrop-filter: blur(10px);
+        /* Effet de flou */
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        border-radius: 10px;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+    .spinner-border {
+        width: 3rem;
+        height: 3rem;
+    }
+
+    .btn-check:checked+.btn-outline-primary {
+        background-color: rgba(0, 123, 255, 0.9);
+        border-color: #007bff;
+    }
+</style>
 
 <script>
     // Configurer les options de Toastr
