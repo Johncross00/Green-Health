@@ -62,6 +62,7 @@
 </style>
 
 @include('coupons.retrait')
+<div id="userData" data-user-id="{{ Auth::user()->id }}"></div>
 
 <div class="side-container-bg d-flex justify-content-center align-items-center ">
     <div class="container py-4">
@@ -423,11 +424,7 @@
         transferLoading.classList.remove('d-none');
 
         // Récupérer l'ID de l'utilisateur et le montant à transférer
-        const userId = {
-            {
-                Auth::user() - > id
-            }
-        };
+        const userId = document.getElementById( 'userData' ).dataset.userId;
         const amount = document.getElementById('transfer_amount').value;
 
         // Envoyer la requête AJAX
@@ -478,11 +475,7 @@
         userTransferLoading.classList.remove('d-none');
 
         // Récupérer l'ID de l'utilisateur, le montant et le numéro de téléphone du destinataire
-        const userId = {
-            {
-                Auth::user() - > id
-            }
-        };
+        const userId = document.getElementById( 'userData' ).dataset.userId;
         const recipientPhone = document.getElementById('recipient_phone').value;
         const amount = document.getElementById('user_transfer_amount').value;
 
