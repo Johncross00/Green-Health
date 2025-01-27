@@ -144,37 +144,37 @@
         <div class="row row-cols-1 row-cols-md-2 g-1 g-md-4">
             <div class="col">
                 
-                <div class="card h-100" data-bs-toggle="modal" data-bs-target="#achatBonModal">
-                    <div class="card-body d-flex flex-column align-items-center justify-content-center">
-                        <svg class="action-icon mb-3" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="2" y="4" width="20" height="16" rx="2" />
-                            <line x1="6" y1="8" x2="6" y2="8" />
-                            <line x1="10" y1="8" x2="18" y2="8" />
-                            <line x1="6" y1="12" x2="6" y2="12" />
-                            <line x1="10" y1="12" x2="18" y2="12" />
-                            <line x1="6" y1="16" x2="6" y2="16" />
-                            <line x1="10" y1="16" x2="18" y2="16" />
-                        </svg>
-                        <h3 class="action-title fs-5 fw-semibold text-center">Achat de BON</h3>
+                    <div class="card h-100" data-bs-toggle="modal" data-bs-target="#achatBonModal">
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                            <svg class="action-icon mb-3" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="4" width="20" height="16" rx="2" />
+                                <line x1="6" y1="8" x2="6" y2="8" />
+                                <line x1="10" y1="8" x2="18" y2="8" />
+                                <line x1="6" y1="12" x2="6" y2="12" />
+                                <line x1="10" y1="12" x2="18" y2="12" />
+                                <line x1="6" y1="16" x2="6" y2="16" />
+                                <line x1="10" y1="16" x2="18" y2="16" />
+                            </svg>
+                            <h3 class="action-title fs-5 fw-semibold text-center">Achat de BON</h3>
+                        </div>
                     </div>
-                </div>
                 </a>
             </div>
 
             <div class="col">
                 
-                <div class="card h-100" data-bs-toggle="modal" data-bs-target="#retraitModal">
-                    <div class="card-body d-flex flex-column align-items-center justify-content-center">
-                        <svg class="action-icon mb-3" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="2" y="6" width="20" height="12" rx="2" />
-                            <circle cx="12" cy="12" r="2" />
-                            <path d="M6 12h.01M18 12h.01" />
-                        </svg>
-                        <h3 class="action-title fs-5 fw-semibold text-center">Retrait CASH</h3>
+                    <div class="card h-100" data-bs-toggle="modal" data-bs-target="#retraitModal">
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                            <svg class="action-icon mb-3" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="6" width="20" height="12" rx="2" />
+                                <circle cx="12" cy="12" r="2" />
+                                <path d="M6 12h.01M18 12h.01" />
+                            </svg>
+                            <h3 class="action-title fs-5 fw-semibold text-center">Retrait CASH</h3>
+                        </div>
                     </div>
-                </div>
                 </a>
             </div>
 
@@ -235,8 +235,7 @@
                     <?php echo csrf_field(); ?>
                     <div class="mb-5">
                         <label for="transfer_amount" class="form-label">Montant à transférer (en Jetons)</label>
-                        <input type="number" class="form-control" id="transfer_amount" name="amount"
-                            min="1" required>
+                        <input type="number" class="form-control" id="transfer_amount" name="amount" min="1" required>
                     </div>
                     <button type="submit" class="btn btn-warning w-100">Valider</button>
                 </form>
@@ -267,13 +266,12 @@
                     <?php echo csrf_field(); ?>
                     <div class="mb-3">
                         <label for="recipient_phone" class="form-label">Numéro de téléphone du destinataire</label>
-                        <input type="text" class="form-control" id="recipient_phone" name="recipient_phone"
-                            required>
+                        <input type="text" class="form-control" id="recipient_phone" name="recipient_phone" required>
                     </div>
                     <div class="mb-3">
                         <label for="user_transfer_amount" class="form-label">Montant à transférer (en Jetons)</label>
-                        <input type="number" class="form-control" id="user_transfer_amount" name="amount"
-                            min="1" required>
+                        <input type="number" class="form-control" id="user_transfer_amount" name="amount" min="1"
+                            required>
                     </div>
                     <button type="submit" class="btn btn-warning w-100">Valider</button>
                 </form>
@@ -328,18 +326,22 @@
                         <label for="bon_id" class="form-label">Sélectionnez un Bon</label>
                         <div class="row g-3">
                             <?php $__currentLoopData = $coupons; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $coupon): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-                                <input type="radio" class="btn-check" name="bon_id" id="bon_<?php echo e($coupon->id); ?>" value="<?php echo e($coupon->id); ?>" required>
-                                <label class="btn btn-outline-primary w-100 h-100" for="bon_<?php echo e($coupon->id); ?>">
-                                    <div class="card h-100 position-relative border-0 shadow-sm <?php echo e($coupon->quantite === 0 ? 'opacity-50' : ''); ?>"
-                                        style="background: rgba(255, 255, 255, 0.8); border-radius: 20px; overflow: hidden;">
-                                        <div class="card-header text-center bg-warning text-dark fw-bolder fs-6 py-2 text-uppercase">
-                                            <?php echo e($coupon->name); ?>
+                                <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                                    <input type="radio" class="btn-check" name="bon_id" id="bon_<?php echo e($coupon->id); ?>"
+                                        value="<?php echo e($coupon->id); ?>" required>
+                                    <label class="btn btn-outline-primary w-100 h-100" for="bon_<?php echo e($coupon->id); ?>">
+                                        <div class="card h-100 position-relative border-0 shadow-sm <?php echo e($coupon->quantite === 0 ? 'opacity-50' : ''); ?>"
+                                            style="background: rgba(255, 255, 255, 0.8); border-radius: 20px; overflow: hidden;">
+                                            <div
+                                                class="card-header text-center bg-warning text-dark fw-bolder fs-6 py-2 text-uppercase">
+                                                <?php echo e($coupon->name); ?>
 
-                                        </div>
-                                        <div class="card-body d-flex flex-column align-items-center justify-content-center p-2">
-                                            <div class="rounded-circle p-2 bg-warning shadow-sm mb-2" style="width: 50px; height: 50px;">
-                                                <?php if (isset($component)) { $__componentOriginala1a18fe69b4abd0c1e17913cd53155c2 = $component; } ?>
+                                            </div>
+                                            <div
+                                                class="card-body d-flex flex-column align-items-center justify-content-center p-2">
+                                                <div class="rounded-circle p-2 bg-warning shadow-sm mb-2"
+                                                    style="width: 50px; height: 50px;">
+                                                    <?php if (isset($component)) { $__componentOriginala1a18fe69b4abd0c1e17913cd53155c2 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginala1a18fe69b4abd0c1e17913cd53155c2 = $attributes; } ?>
 <?php $component = App\View\Components\DollarIcon::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('dollar-icon'); ?>
@@ -359,15 +361,18 @@
 <?php $component = $__componentOriginala1a18fe69b4abd0c1e17913cd53155c2; ?>
 <?php unset($__componentOriginala1a18fe69b4abd0c1e17913cd53155c2); ?>
 <?php endif; ?>
-                                            </div>
-                                            <div class="text-center">
-                                                <p class="mb-1 fs-6"><strong><?php echo e($coupon->quantite); ?></strong> en stock</p>
-                                                <p class="mb-0 fs-6 text-warning"><strong><?php echo e(number_format($coupon->price, 0, ',', ' ')); ?></strong> Fcfa</p>
+                                                </div>
+                                                <div class="text-center">
+                                                    <p class="mb-1 fs-6"><strong><?php echo e($coupon->quantite); ?></strong> en stock
+                                                    </p>
+                                                    <p class="mb-0 fs-6 text-warning">
+                                                        <strong><?php echo e(number_format($coupon->price, 0, ',', ' ')); ?></strong>
+                                                        Fcfa</p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </label>
-                            </div>
+                                    </label>
+                                </div>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </div>
                     </div>
@@ -464,57 +469,80 @@
     };
 
     // Logger les actions des cartes
-    document.querySelectorAll('.card').forEach(card => {
-        card.addEventListener('click', () => {
-            console.log('Action clicked:', card.querySelector('.action-title').textContent);
-        });
-    });
+    document.querySelectorAll( '.card' ).forEach( card =>
+    {
+        card.addEventListener( 'click', () =>
+        {
+            const actionTitle = card.querySelector( '.action-title' );
+            if ( actionTitle )
+            {
+                console.log( 'Action clicked:', actionTitle.textContent );
+            } else
+            {
+                console.error( 'Action title not found' );
+            }
+        } );
+    } );
 
     // Gestionnaire pour le formulaire de transfert de gains vers le portefeuille
-    document.getElementById('transferForm').addEventListener('submit', function(e) {
+    document.getElementById( 'transferForm' ).addEventListener( 'submit', function ( e )
+    {
         e.preventDefault();
 
         // Cacher le bouton et afficher l'animation de chargement
-        const transferButton = document.querySelector('#transferForm button');
-        const transferLoading = document.getElementById('loading');
-        transferButton.classList.add('d-none');
-        transferLoading.classList.remove('d-none');
+        const transferButton = document.querySelector( '#transferForm button' );
+        const transferLoading = document.getElementById( 'loading' );
+        transferButton.classList.add( 'd-none' );
+        transferLoading.classList.remove( 'd-none' );
 
         // Récupérer l'ID de l'utilisateur et le montant à transférer
+        const userDataElement = document.getElementById( 'userData' );
+        if ( !userDataElement )
+        {
+            console.error( 'Element with id "userData" not found' );
+            return;
+        }
+
+
         const userId = document.getElementById( 'userData' ).dataset.userId;
-        const amount = document.getElementById('transfer_amount').value;
+        const amount = document.getElementById( 'transfer_amount' ).value;
 
         // Envoyer la requête AJAX
-        fetch(`/transfer-gain-to-wallet/${userId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
-                        'content')
-                },
-                body: JSON.stringify({
-                    amount: amount
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.message) {
-                    toastr.success('Transfert réussi !');
+        fetch( `/transfer-gain-to-wallet/${ userId }`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector( 'meta[name="csrf-token"]' ).getAttribute(
+                    'content' )
+            },
+            body: JSON.stringify( {
+                amount: amount
+            } )
+        } )
+            .then( response => response.json() )
+            .then( data =>
+            {
+                if ( data.message )
+                {
+                    toastr.success( 'Transfert réussi !' );
                     location.reload();
-                } else {
-                    toastr.error(data.error || 'Erreur lors du transfert.');
+                } else
+                {
+                    toastr.error( data.error || 'Erreur lors du transfert.' );
                 }
-            })
-            .catch(error => {
-                console.error('Erreur:', error);
-                alert('Une erreur est survenue. Veuillez réessayer.');
-            })
-            .finally(() => {
+            } )
+            .catch( error =>
+            {
+                console.error( 'Erreur:', error );
+                alert( 'Une erreur est survenue. Veuillez réessayer.' );
+            } )
+            .finally( () =>
+            {
                 // Réafficher le bouton et cacher l'animation
-                transferButton.classList.remove('d-none');
-                transferLoading.classList.add('d-none');
-            });
-    });
+                transferButton.classList.remove( 'd-none' );
+                transferLoading.classList.add( 'd-none' );
+            } );
+    } );
 
 
 
@@ -522,87 +550,97 @@
 
 
     // Gestionnaire pour le formulaire de transfert inter-utilisateur
-    document.getElementById('userTransferForm').addEventListener('submit', function(e) {
+    document.getElementById( 'userTransferForm' ).addEventListener( 'submit', function ( e )
+    {
         e.preventDefault();
 
         // Cacher le bouton et afficher l'animation de chargement
-        const userTransferButton = document.querySelector('#userTransferForm button');
-        const userTransferLoading = document.getElementById('loadingTransfer');
-        userTransferButton.classList.add('d-none');
-        userTransferLoading.classList.remove('d-none');
+        const userTransferButton = document.querySelector( '#userTransferForm button' );
+        const userTransferLoading = document.getElementById( 'loadingTransfer' );
+        userTransferButton.classList.add( 'd-none' );
+        userTransferLoading.classList.remove( 'd-none' );
 
         // Récupérer l'ID de l'utilisateur, le montant et le numéro de téléphone du destinataire
         const userId = document.getElementById( 'userData' ).dataset.userId;
-        const recipientPhone = document.getElementById('recipient_phone').value;
-        const amount = document.getElementById('user_transfer_amount').value;
+        const recipientPhone = document.getElementById( 'recipient_phone' ).value;
+        const amount = document.getElementById( 'user_transfer_amount' ).value;
 
         // Afficher les données dans la console pour vérification
-        console.log({
+        console.log( {
             recipient_phone: recipientPhone,
             amount: amount
-        });
+        } );
 
-        if (!amount) {
-            alert("Le montant ne peut pas être vide.");
+        if ( !amount )
+        {
+            alert( "Le montant ne peut pas être vide." );
             // Réafficher le bouton et cacher l'animation
-            userTransferButton.classList.remove('d-none');
-            userTransferLoading.classList.add('d-none');
+            userTransferButton.classList.remove( 'd-none' );
+            userTransferLoading.classList.add( 'd-none' );
             return;
         }
 
         // Envoyer la requête AJAX
-        fetch(`/transfer-to-other-wallet/${userId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
-                        'content')
-                },
-                body: JSON.stringify({
-                    recipient_phone: recipientPhone,
-                    amount: amount
-                })
-            })
-            .then(response => response.json().then(data => ({
+        fetch( `/transfer-to-other-wallet/${ userId }`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector( 'meta[name="csrf-token"]' ).getAttribute(
+                    'content' )
+            },
+            body: JSON.stringify( {
+                recipient_phone: recipientPhone,
+                amount: amount
+            } )
+        } )
+            .then( response => response.json().then( data => ( {
                 status: response.status,
                 body: data
-            })))
-            .then(data => {
-                if (data.status === 422) {
-                    console.error('Erreur de validation:', data.body.errors);
-                    toastr.error('Erreur de validation: ' + JSON.stringify(data.body.errors));
-                } else if (data.body.message) {
-                    toastr.success('Transfert réussi !');
+            } ) ) )
+            .then( data =>
+            {
+                if ( data.status === 422 )
+                {
+                    console.error( 'Erreur de validation:', data.body.errors );
+                    toastr.error( 'Erreur de validation: ' + JSON.stringify( data.body.errors ) );
+                } else if ( data.body.message )
+                {
+                    toastr.success( 'Transfert réussi !' );
                     location.reload();
-                } else {
-                    toastr.error(data.body.error || 'Erreur lors du transfert.');
+                } else
+                {
+                    toastr.error( data.body.error || 'Erreur lors du transfert.' );
                 }
-            })
-            .catch(error => {
-                console.error('Erreur:', error);
-                alert('Une erreur est survenue. Veuillez réessayer.');
-            })
-            .finally(() => {
+            } )
+            .catch( error =>
+            {
+                console.error( 'Erreur:', error );
+                alert( 'Une erreur est survenue. Veuillez réessayer.' );
+            } )
+            .finally( () =>
+            {
                 // Réafficher le bouton et cacher l'animation
-                userTransferButton.classList.remove('d-none');
-                userTransferLoading.classList.add('d-none');
-            });
-    });
+                userTransferButton.classList.remove( 'd-none' );
+                userTransferLoading.classList.add( 'd-none' );
+            } );
+    } );
 
 
 
 
 
 
-    $(document).ready(function() {
+    $( document ).ready( function ()
+    {
         // Lorsque le modal est ouvert
-        $('#historyModal').on('show.bs.modal', function(event) {
-            var modal = $(this);
-            var contentDiv = modal.find('#transaction-history-content');
+        $( '#historyModal' ).on( 'show.bs.modal', function ( event )
+        {
+            var modal = $( this );
+            var contentDiv = modal.find( '#transaction-history-content' );
 
             // Afficher un spinner pendant le chargement
-            contentDiv.html(`
+            contentDiv.html( `
                 <div class="text-center">
                     <div class="spinner-border text-warning" role="status">
                         <span class="visually-hidden">Chargement...</span>
@@ -611,80 +649,107 @@
             `);
 
             // Faire une requête AJAX pour obtenir les transactions
-            $.ajax({
+            $.ajax( {
                 url: "<?php echo e(route('wallet.history')); ?>",
                 type: 'GET',
-                success: function(data) {
-                    contentDiv.html(data);
+                success: function ( data )
+                {
+                    contentDiv.html( data );
                 },
-                error: function(xhr, status, error) {
-                    console.error('AJAX Error:', status, error);
-                    console.error('Response:', xhr.responseText);
+                error: function ( xhr, status, error )
+                {
+                    console.error( 'AJAX Error:', status, error );
+                    console.error( 'Response:', xhr.responseText );
                     contentDiv.html(
                         '<p class="text-center text-danger">Erreur lors du chargement des transactions.</p>'
                     );
                 }
-            });
-        });
+            } );
+        } );
 
 
         // Gestionnaire pour le formulaire d'achat de bons
-        document.getElementById('achatBonForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        // document.getElementById( 'achatBonForm' ).addEventListener( 'submit', function ( e )
+        // {
+        //     e.preventDefault();
 
-            // Cacher le bouton et afficher l'animation de chargement
-            const buyButton = document.querySelector('#achatBonForm button');
-            const buyLoading = document.getElementById('loadingBuy');
-            buyButton.classList.add('d-none');
-            buyLoading.classList.remove('d-none');
+        //     // Cacher le bouton et afficher l'animation de chargement
+        //     const buyButton = document.querySelector( '#achatBonForm button' );
+        //     const buyLoading = document.getElementById( 'loadingBuy' );
+        //     buyButton.classList.add( 'd-none' );
+        //     buyLoading.classList.remove( 'd-none' );
 
-            // Récupérer l'ID du bon sélectionné
-            const bonId = document.getElementById('bon_id').value;
+        //     // Récupérer l'ID du bon sélectionné
+        //     const bonIdInput = document.querySelector( 'input[name="bon_id"]:checked' );
+        //     if ( !bonIdInput )
+        //     {
+        //         toastr.error( 'Veuillez sélectionner un bon.' );
+        //         buyButton.classList.remove( 'd-none' );
+        //         buyLoading.classList.add( 'd-none' );
+        //         return;
+        //     }
 
-            // Envoyer la requête AJAX
-            fetch('<?php echo e(route('buy.coupon')); ?>', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                        },
-                        body: JSON.stringify({
-                            bon_id: bonId
-                        })
-                    })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.message) {
-                        toastr.success('Achat de bon réussi !');
-                        location.reload();
-                    } else {
-                        toastr.error(data.error || 'Erreur lors de l\'achat du bon.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Erreur:', error);
-                    alert('Une erreur est survenue. Veuillez réessayer.');
-                })
-                .finally(() => {
-                    // Réafficher le bouton et cacher l'animation
-                    buyButton.classList.remove('d-none');
-                    buyLoading.classList.add('d-none');
-                });
-        });
-    });
+        //     const bonId = bonIdInput.value;
+
+        //     // Envoyer la requête AJAX
+        //     fetch( "<?php echo e(route('buy.coupon')); ?>", {
+        //         method: 'POST',
+        //         headers: {
+                    
+        //     'Content-Type': 'application/json',
+        //             'X-CSRF-TOKEN': document.querySelector( 'meta[name="csrf-token"]' ).getAttribute( 'content' )
+        //         },
+        //         body: JSON.stringify( {
+        //             bon_id: bonId
+        //         } )
+        //     } )
+        //         .then( response =>
+        //         {
+        //             if ( !response.ok )
+        //             {
+        //                 throw new Error( 'Network response was not ok' );
+        //             }
+        //             return response.json();
+        //         } )
+        //         .then( data =>
+        //         {
+        //             console.log( 'Réponse du serveur:', data ); // Log pour vérifier la réponse
+        //             if ( data.message )
+        //             {
+        //                 toastr.success( 'Achat de bon réussi !' );
+        //                 location.reload();
+        //             } else
+        //             {
+        //                 toastr.error( data.error || 'Erreur lors de l\'achat du bon.' );
+        //             }
+        //         } )
+        //         .catch( error =>
+        //         {
+        //             console.error( 'Erreur:', error );
+        //             toastr.error( 'Une erreur est survenue. Veuillez réessayer.' );
+        //         } )
+        //         .finally( () =>
+        //         {
+        //             // Réafficher le bouton et cacher l'animation
+        //             buyButton.classList.remove( 'd-none' );
+        //             buyLoading.classList.add( 'd-none' );
+        //         } );
+        // } );
+    } );
 
 
 
 
     // Gérer la pagination via AJAX
-    $(document).on('click', '#historyModal .pagination a', function(e) {
+    $( document ).on( 'click', '#historyModal .pagination a', function ( e )
+    {
         e.preventDefault();
-        var url = $(this).attr('href');
-        var modal = $('#historyModal');
-        var contentDiv = modal.find('#transaction-history-content');
+        var url = $( this ).attr( 'href' );
+        var modal = $( '#historyModal' );
+        var contentDiv = modal.find( '#transaction-history-content' );
 
         // Afficher un spinner pendant le chargement
-        contentDiv.html(`
+        contentDiv.html( `
                 <div class="text-center">
                     <div class="spinner-border text-warning" role="status">
                         <span class="visually-hidden">Chargement...</span>
@@ -693,21 +758,23 @@
             `);
 
         // Faire une requête AJAX pour obtenir les nouvelles transactions
-        $.ajax({
+        $.ajax( {
             url: url,
             type: 'GET',
-            success: function(data) {
-                contentDiv.html(data);
+            success: function ( data )
+            {
+                contentDiv.html( data );
             },
-            error: function(xhr, status, error) {
-                console.error('AJAX Error:', status, error);
-                console.error('Response:', xhr.responseText);
+            error: function ( xhr, status, error )
+            {
+                console.error( 'AJAX Error:', status, error );
+                console.error( 'Response:', xhr.responseText );
                 contentDiv.html(
                     '<p class="text-center text-danger">Erreur lors du chargement des transactions.</p>'
                 );
             }
-        });
-    });
+        } );
+    } );
 </script>
 
 
