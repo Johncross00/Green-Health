@@ -16,6 +16,8 @@ class Coupon extends Model
         'price',
         'date',
         'quantite',
+        'negotiation_price',
+        'percentage',
     ];
     public function transactions()
     {

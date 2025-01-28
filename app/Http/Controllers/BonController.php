@@ -42,7 +42,9 @@ class BonController extends Controller
             'name' => 'required|string|max:255',
             'price' => 'required|integer',
             'date' => 'required|date',
-            'quantite' => 'required|integer'
+            'quantite' => 'required|integer',
+            'negotiation_price' => 'required|integer|min:0',
+            'percentage' => 'required|integer|min:0|max:100',
         ]);
 
         try {

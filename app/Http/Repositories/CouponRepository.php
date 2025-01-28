@@ -40,6 +40,10 @@ class CouponRepository {
         return Coupon::totalQuantite();
         
     }
+    public function findByCriteria(array $criteria)
+    {
+        return Coupon::where($criteria)->first();
+    }
    
 
 }

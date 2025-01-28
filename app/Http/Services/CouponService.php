@@ -65,10 +65,18 @@ class CouponService
     public function create(array $data)
     {
         $data['code'] = $this->getCode();
-        $coupon = $this->couponRepository->getByPrice($data['price']);
+
+        $coupon = $this->couponRepository->findByCriteria([
+            'name' => $data['name'],
+            'price' => $data['price'],
+            'negotiation_price' => $data['negotiation_price'],
+            'percentage' => $data['percentage'],
+        ]);
+
         if ($coupon) {
-            return redirect()->back()->with('error', 'Un bon avec ce prix existe déjà.');
+            return redirect()->back()->with('error', 'Un bon avec ces critères existe déjà.');
         }
+
         $this->couponRepository->create($data);
         return redirect()->back()->with('success', 'Bon créé avec succès.');
     }
